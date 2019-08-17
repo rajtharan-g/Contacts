@@ -15,6 +15,8 @@ class ContactsManager: NSObject {
     
     static let shared = ContactsManager()
     
+    let nonLetterIndex = "#"
+    
     func fetchContacts(completionHandler: @escaping ([String: [Contact]]?, Error?) -> Void) {
         if let url = URL(string: kContactsURL) {
             URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { (data, response, error) -> Void in
@@ -37,15 +39,25 @@ class ContactsManager: NSObject {
         var contactsDict: [String: [Contact]] = [:]
         for contact in contacts {
             let indexKey = contact.fullName().first?.uppercased() ?? ""
-            if !Array(contactsDict.keys).contains(indexKey) {
+            if !Array(contactsDict.keys).contains(indexKey) && Character(indexKey).isLetter {
                 contactsDict[indexKey] = Array()
+            } else {
+                contactsDict[nonLetterIndex] = Array()
             }
         }
         let sortedKeys = Array(contactsDict.keys).sorted(by: <)
         for key in sortedKeys {
-            contactsDict[key] = contacts.filter({$0.fullName().first?.uppercased() ?? "" == key}).sorted(by: {$0.fullName() < $1.fullName()})
+            if Character(key).isLetter {
+                contactsDict[key] = contacts.filter({$0.fullName().first?.uppercased() ?? "" == key}).sorted(by: {$0.fullName() < $1.fullName()})
+            } else {
+                contactsDict[key] = contacts.filter({!Character($0.fullName().first?.uppercased() ?? "").isLetter})
+            }
         }
         return contactsDict
+    }
+    
+    class func navigationTitleTextAttributes() -> [NSAttributedString.Key: Any] {
+        return [NSAttributedString.Key.foregroundColor: UIColor.appBlackColor(), NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17.0, weight: .semibold)]
     }
 
 }
