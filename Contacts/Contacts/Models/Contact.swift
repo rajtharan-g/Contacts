@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Contact: Codable {
+class Contact: Decodable {
     
     let id: Int?
     let firstName: String?
@@ -17,7 +17,7 @@ class Contact: Codable {
     let isFavourite: Bool?
     let url: String?
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case firstName = "first_name"
         case lastName = "last_name"

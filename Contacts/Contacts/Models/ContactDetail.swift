@@ -8,28 +8,27 @@
 
 import UIKit
 
-class ContactDetail: Codable {
+class ContactDetail: Contact {
     
-    let id: Int?
-    let firstName: String?
-    let lastName: String?
-    let contactImage: String?
-    var isFavourite: Bool?
-    let email: String?
-    let phone: String?
+    var email: String? = nil
+    var phone: String?
     var createdAt: String?
     var updatedAt: String?
     
-    enum CodingKeys: String, CodingKey {
-        case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case contactImage = "profile_pic"
-        case isFavourite = "favorite"
+    private enum CodingKeys: String, CodingKey {
         case email
         case phone = "phone_number"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.email = try container.decode(String?.self, forKey: .email)
+        self.phone = try container.decode(String?.self, forKey: .phone)
+        self.createdAt = try container.decode(String?.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String?.self, forKey: .updatedAt)
+        try super.init(from: decoder)
     }
 
 }

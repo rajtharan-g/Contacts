@@ -22,6 +22,7 @@
 		85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A632308653B002A8945 /* ContactActionView.swift */; };
 		85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A652308696D002A8945 /* ContactDetailViewController.swift */; };
 		85BF7A6823087AF2002A8945 /* ContactDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A6723087AF2002A8945 /* ContactDetail.swift */; };
+		85BF7A6A23089E62002A8945 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A6923089E62002A8945 /* CustomImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		85BF7A632308653B002A8945 /* ContactActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactActionView.swift; sourceTree = "<group>"; };
 		85BF7A652308696D002A8945 /* ContactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
 		85BF7A6723087AF2002A8945 /* ContactDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetail.swift; sourceTree = "<group>"; };
+		85BF7A6923089E62002A8945 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 			children = (
 				85BF7A6123086361002A8945 /* ContactAction.xib */,
 				85BF7A632308653B002A8945 /* ContactActionView.swift */,
+				85BF7A6923089E62002A8945 /* CustomImageView.swift */,
 			);
 			path = "Custom Class";
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				85029CAD2307CB0700124F82 /* ContactsViewController.swift in Sources */,
 				85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */,
 				85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */,
+				85BF7A6A23089E62002A8945 /* CustomImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

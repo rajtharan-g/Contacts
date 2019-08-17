@@ -56,12 +56,12 @@ extension UIColor {
         return UIColor(red: 240.0 / 255.0, green: 240.0 / 255.0 , blue: 240.0 / 255.0, alpha: 1.0)
     }
     
-    class func appBlackColor() -> UIColor {
-        return UIColor(red: 74.0 / 255.0, green: 74.0 / 255.0 , blue: 74.0 / 255.0, alpha: 1.0)
+    class func appBlackColor(alpha: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: 74.0 / 255.0, green: 74.0 / 255.0 , blue: 74.0 / 255.0, alpha: alpha)
     }
     
-    class func menuGreenColor() -> UIColor {
-        return UIColor(red: 80.0 / 255.0, green: 227.0 / 255.0 , blue: 194.0 / 255.0, alpha: 1.0)
+    class func menuGreenColor(alpha: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: 80.0 / 255.0, green: 227.0 / 255.0 , blue: 194.0 / 255.0, alpha: alpha)
     }
     
 }
@@ -77,8 +77,13 @@ extension UIBarButtonItem {
 extension UIView {
     
     func rounded() {
-        self.layer.cornerRadius = self.frame.size.width / 2
+        self.layer.cornerRadius = self.bounds.size.width / 2.0
         self.clipsToBounds = true
+    }
+    
+    func bordered() {
+        self.layer.borderWidth = 3.0
+        self.layer.borderColor = UIColor.white.cgColor
     }
     
 }
