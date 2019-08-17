@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jbs-GX-F2Y">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Contacts View Controller-->
+        <!--Contacts-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ContactsViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,12 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S3V-Ip-6jQ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="S3V-Ip-6jQ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="64" id="DdL-Ie-T4f">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="64"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCellIdentifier" rowHeight="64" id="DdL-Ie-T4f" customClass="ContactTableViewCell" customModule="Contacts" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DdL-Ie-T4f" id="xQM-NO-yM3">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="63.5"/>
@@ -41,25 +41,30 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNr-JV-UwT">
-                                                    <rect key="frame" x="352" y="10" width="30" height="44"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_favourite" translatesAutoresizingMaskIntoConstraints="NO" id="aeQ-Wv-5tQ">
+                                                    <rect key="frame" x="352" y="17" width="30" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="Iuz-od-MC1"/>
+                                                        <constraint firstAttribute="height" constant="30" id="ZgR-dz-MwO"/>
+                                                        <constraint firstAttribute="width" secondItem="aeQ-Wv-5tQ" secondAttribute="height" multiplier="1:1" id="yAg-jd-T5R"/>
                                                     </constraints>
-                                                </button>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="KNr-JV-UwT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g6M-JU-Adf" secondAttribute="trailing" constant="16" id="60J-BR-bXa"/>
                                                 <constraint firstAttribute="bottom" secondItem="g6M-JU-Adf" secondAttribute="bottom" constant="24" id="8Xw-Rq-7u2"/>
                                                 <constraint firstItem="g6M-JU-Adf" firstAttribute="leading" secondItem="oX5-nC-1Q5" secondAttribute="trailing" constant="16" id="A78-y6-vrm"/>
+                                                <constraint firstAttribute="trailing" secondItem="aeQ-Wv-5tQ" secondAttribute="trailing" constant="32" id="G61-ln-gvC"/>
                                                 <constraint firstAttribute="bottom" secondItem="oX5-nC-1Q5" secondAttribute="bottom" constant="12" id="L36-1v-atq"/>
                                                 <constraint firstItem="oX5-nC-1Q5" firstAttribute="leading" secondItem="xQM-NO-yM3" secondAttribute="leading" constant="16" id="TsQ-F6-uMa"/>
                                                 <constraint firstItem="g6M-JU-Adf" firstAttribute="top" secondItem="xQM-NO-yM3" secondAttribute="top" constant="24" id="VdD-DE-ktH"/>
-                                                <constraint firstAttribute="trailing" secondItem="KNr-JV-UwT" secondAttribute="trailing" constant="32" id="YcR-oe-xUa"/>
-                                                <constraint firstItem="KNr-JV-UwT" firstAttribute="centerY" secondItem="xQM-NO-yM3" secondAttribute="centerY" id="aAY-L3-EG0"/>
+                                                <constraint firstItem="aeQ-Wv-5tQ" firstAttribute="centerY" secondItem="xQM-NO-yM3" secondAttribute="centerY" id="j8j-cx-v4x"/>
                                                 <constraint firstItem="oX5-nC-1Q5" firstAttribute="top" secondItem="xQM-NO-yM3" secondAttribute="top" constant="12" id="uIv-Pb-PWx"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="contactImageView" destination="oX5-nC-1Q5" id="Lbb-vX-JCN"/>
+                                            <outlet property="contactName" destination="g6M-JU-Adf" id="bcy-Yx-WmQ"/>
+                                            <outlet property="favoriteImageView" destination="aeQ-Wv-5tQ" id="e7y-RH-YZI"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -77,10 +82,38 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Contacts" id="ezG-zg-j3l">
+                        <barButtonItem key="leftBarButtonItem" title="Groups" id="6qK-lP-Q9E"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kEG-Xv-w96"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="contactsTableView" destination="S3V-Ip-6jQ" id="V1W-bb-4kc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="107.8125"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="MCP-sp-7Cd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jbs-GX-F2Y" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="96c-ji-6DD">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="QwX-yo-rJt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="87w-Ec-ir8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="107.8125"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="home_favourite" width="19" height="18"/>
+    </resources>
 </document>
