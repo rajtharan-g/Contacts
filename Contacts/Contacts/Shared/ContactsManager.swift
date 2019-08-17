@@ -10,12 +10,15 @@ import UIKit
 
 let kBaseURL = "http://gojek-contacts-app.herokuapp.com/"
 let kContactsURL = "\(kBaseURL)contacts.json"
+let kContactDetailURL = "\(kBaseURL)contacts"
 
 class ContactsManager: NSObject {
     
     static let shared = ContactsManager()
     
     let nonLetterIndex = "#"
+    
+    // MARK: - API methods
     
     func fetchContacts(completionHandler: @escaping ([String: [Contact]]?, Error?) -> Void) {
         if let url = URL(string: kContactsURL) {
@@ -30,10 +33,30 @@ class ContactsManager: NSObject {
                     completionHandler(nil, error)
                     return
                 }
-                completionHandler(self.sortContacts(contacts: contacts), nil)
+                completionHandler(self.sortContacts(contacts: contacts), error)
             }).resume()
         }
     }
+    
+    func fetchContactDetail(contact:Contact, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
+        if let contactId = contact.id, let url = URL(string: "\(kContactDetailURL)/\(contactId).json") {
+            URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { (data, response, error) -> Void in
+                guard let data = data else {
+                    print("Error: No data to decode")
+                    completionHandler(nil, error)
+                    return
+                }
+                guard let contact = try? JSONDecoder().decode(ContactDetail.self, from: data) else {
+                    print("Error: Couldn't decode data into Contact")
+                    completionHandler(nil, error)
+                    return
+                }
+                completionHandler(contact, error)
+            }).resume()
+        }
+    }
+    
+    // MARK: - Custom methods
     
     func sortContacts(contacts: [Contact]) -> [String: [Contact]] {
         var contactsDict: [String: [Contact]] = [:]

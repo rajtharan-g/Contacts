@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
+            <connections>
+                <outlet property="actionButton" destination="4Qh-1M-ATd" id="m6Q-Jy-5GQ"/>
+                <outlet property="actionLabel" destination="9RL-KE-iIv" id="zk3-Su-U5a"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="r7K-Nj-8M4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="167" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O1C-rt-MIa">
+                    <rect key="frame" x="0.0" y="0.0" width="167" height="100"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Qh-1M-ATd">
+                            <rect key="frame" x="61.5" y="5" width="44" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="CMk-a8-lNW"/>
+                                <constraint firstAttribute="height" constant="44" id="tY8-8z-HyK"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="buttonActionPressed:" destination="-1" eventType="touchUpInside" id="CEW-V4-zlS"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9RL-KE-iIv">
+                            <rect key="frame" x="62.5" y="80" width="42" height="20"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="GbH-7O-13I"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="9RL-KE-iIv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4Qh-1M-ATd" secondAttribute="bottom" id="5dt-ar-ipW"/>
+                        <constraint firstItem="4Qh-1M-ATd" firstAttribute="centerX" secondItem="O1C-rt-MIa" secondAttribute="centerX" id="CHv-6f-jZc"/>
+                        <constraint firstItem="9RL-KE-iIv" firstAttribute="centerX" secondItem="O1C-rt-MIa" secondAttribute="centerX" id="L8c-oo-fNa"/>
+                        <constraint firstAttribute="bottom" secondItem="9RL-KE-iIv" secondAttribute="bottom" id="NYc-Sr-YMK"/>
+                        <constraint firstItem="4Qh-1M-ATd" firstAttribute="top" secondItem="O1C-rt-MIa" secondAttribute="top" constant="5" id="qCM-Pd-gZ5"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="O1C-rt-MIa" secondAttribute="trailing" id="MIY-GE-GUg"/>
+                <constraint firstAttribute="bottom" secondItem="O1C-rt-MIa" secondAttribute="bottom" id="g6L-xd-4dg"/>
+                <constraint firstItem="O1C-rt-MIa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gdC-GO-x85"/>
+                <constraint firstItem="O1C-rt-MIa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pB2-44-0Zn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="9.4202898550724647" y="-96.763392857142847"/>
+        </view>
+    </objects>
+</document>

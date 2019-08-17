@@ -18,6 +18,10 @@
 		85029CB92307D4EC00124F82 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85029CB82307D4EC00124F82 /* Contact.swift */; };
 		85029CBB2307DE1900124F82 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85029CBA2307DE1900124F82 /* ContactTableViewCell.swift */; };
 		85029CBD2307DF8B00124F82 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85029CBC2307DF8B00124F82 /* Extension.swift */; };
+		85BF7A6223086361002A8945 /* ContactAction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85BF7A6123086361002A8945 /* ContactAction.xib */; };
+		85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A632308653B002A8945 /* ContactActionView.swift */; };
+		85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A652308696D002A8945 /* ContactDetailViewController.swift */; };
+		85BF7A6823087AF2002A8945 /* ContactDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A6723087AF2002A8945 /* ContactDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,10 @@
 		85029CB82307D4EC00124F82 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		85029CBA2307DE1900124F82 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		85029CBC2307DF8B00124F82 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		85BF7A6123086361002A8945 /* ContactAction.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactAction.xib; sourceTree = "<group>"; };
+		85BF7A632308653B002A8945 /* ContactActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactActionView.swift; sourceTree = "<group>"; };
+		85BF7A652308696D002A8945 /* ContactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
+		85BF7A6723087AF2002A8945 /* ContactDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				85029CA72307CB0700124F82 /* ContactsViewController.swift */,
+				85BF7A652308696D002A8945 /* ContactDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -198,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				85029CB82307D4EC00124F82 /* Contact.swift */,
+				85BF7A6723087AF2002A8945 /* ContactDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,6 +215,8 @@
 		85BF7A5E230847DF002A8945 /* Custom Class */ = {
 			isa = PBXGroup;
 			children = (
+				85BF7A6123086361002A8945 /* ContactAction.xib */,
+				85BF7A632308653B002A8945 /* ContactActionView.swift */,
 			);
 			path = "Custom Class";
 			sourceTree = "<group>";
@@ -313,6 +325,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85BF7A6223086361002A8945 /* ContactAction.xib in Resources */,
 				85029CAC2307CB0700124F82 /* Main.storyboard in Resources */,
 				85029CB12307CC2100124F82 /* Assets.xcassets in Resources */,
 				85029CAB2307CB0700124F82 /* LaunchScreen.storyboard in Resources */,
@@ -344,8 +357,11 @@
 				85029CBB2307DE1900124F82 /* ContactTableViewCell.swift in Sources */,
 				85029CAA2307CB0700124F82 /* AppDelegate.swift in Sources */,
 				85029CBD2307DF8B00124F82 /* Extension.swift in Sources */,
+				85BF7A6823087AF2002A8945 /* ContactDetail.swift in Sources */,
 				85029CB62307D2FC00124F82 /* ContactsManager.swift in Sources */,
 				85029CAD2307CB0700124F82 /* ContactsViewController.swift in Sources */,
+				85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */,
+				85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

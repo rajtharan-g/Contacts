@@ -113,7 +113,14 @@ extension ContactsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let contactDetailVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "contactDetailVC") as! ContactDetailViewController
+        if let keys = contactsDict?.keys.sorted() {
+            let indexKey = Array(keys)[indexPath.section]
+            if let contact = contactsDict?[indexKey]?[indexPath.row] {
+                contactDetailVC.contact = contact
+            }
+        }
+        self.navigationController?.pushViewController(contactDetailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

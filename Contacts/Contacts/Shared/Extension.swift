@@ -74,9 +74,9 @@ extension UIBarButtonItem {
     
 }
 
-extension UIImageView {
+extension UIView {
     
-    func roundedImage() {
+    func rounded() {
         self.layer.cornerRadius = self.frame.size.width / 2
         self.clipsToBounds = true
     }

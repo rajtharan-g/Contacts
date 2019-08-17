@@ -39,7 +39,7 @@ class ContactTableViewCell: UITableViewCell {
         contactName.font = UIFont.systemFont(ofSize: 14.0, weight: .bold)
         
         // UI
-        favoriteImageView.roundedImage()
+        favoriteImageView.rounded()
     }
 
 }
