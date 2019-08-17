@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Contacts-->
+        <!--Contact-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ContactsViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
@@ -36,7 +36,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6M-JU-Adf">
-                                                    <rect key="frame" x="71.5" y="24" width="42" height="15.5"/>
+                                                    <rect key="frame" x="71.5" y="24" width="264.5" height="15.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -57,6 +57,7 @@
                                                 <constraint firstItem="oX5-nC-1Q5" firstAttribute="leading" secondItem="xQM-NO-yM3" secondAttribute="leading" constant="16" id="TsQ-F6-uMa"/>
                                                 <constraint firstItem="g6M-JU-Adf" firstAttribute="top" secondItem="xQM-NO-yM3" secondAttribute="top" constant="24" id="VdD-DE-ktH"/>
                                                 <constraint firstItem="aeQ-Wv-5tQ" firstAttribute="centerY" secondItem="xQM-NO-yM3" secondAttribute="centerY" id="j8j-cx-v4x"/>
+                                                <constraint firstItem="aeQ-Wv-5tQ" firstAttribute="leading" secondItem="g6M-JU-Adf" secondAttribute="trailing" constant="16" id="u5u-eh-lFS"/>
                                                 <constraint firstItem="oX5-nC-1Q5" firstAttribute="top" secondItem="xQM-NO-yM3" secondAttribute="top" constant="12" id="uIv-Pb-PWx"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -82,12 +83,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Contacts" id="ezG-zg-j3l">
+                    <navigationItem key="navigationItem" title="Contact" id="ezG-zg-j3l">
                         <barButtonItem key="leftBarButtonItem" title="Groups" id="6qK-lP-Q9E"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kEG-Xv-w96"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBarButtonItem" destination="kEG-Xv-w96" id="Ykq-Kd-slL"/>
                         <outlet property="contactsTableView" destination="S3V-Ip-6jQ" id="V1W-bb-4kc"/>
+                        <outlet property="groupsBarButtonItem" destination="6qK-lP-Q9E" id="d2m-kg-Epa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

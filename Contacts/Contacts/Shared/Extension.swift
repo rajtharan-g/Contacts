@@ -30,12 +30,55 @@ extension UIImageView {
                             self?.image = image
                         }
                 } else {
-                    // Load placeholder
+                    DispatchQueue.main.async {
+                        self?.applyPlaceholder()
+                    }
                 }
             }
         } else {
-            // Load placeholder
+            applyPlaceholder()
         }
+    }
+    
+    func applyPlaceholder() {
+        self.image = UIImage(named: "placeholder_photo")
+    }
+    
+}
+
+extension UIColor {
+    
+    class func lightGray() -> UIColor {
+        return UIColor(red: 232.0 / 255.0, green: 232.0 / 255.0 , blue: 232.0 / 255.0, alpha: 1.0)
+    }
+    
+    class func veryLightGray() -> UIColor {
+        return UIColor(red: 240.0 / 255.0, green: 240.0 / 255.0 , blue: 240.0 / 255.0, alpha: 1.0)
+    }
+    
+    class func appBlackColor() -> UIColor {
+        return UIColor(red: 74.0 / 255.0, green: 74.0 / 255.0 , blue: 74.0 / 255.0, alpha: 1.0)
+    }
+    
+    class func menuGreenColor() -> UIColor {
+        return UIColor(red: 80.0 / 255.0, green: 227.0 / 255.0 , blue: 194.0 / 255.0, alpha: 1.0)
+    }
+    
+}
+
+extension UIBarButtonItem {
+    
+    func applyTintColor(color: UIColor) {
+        self.tintColor = color
+    }
+    
+}
+
+extension UIImageView {
+    
+    func roundedImage() {
+        self.layer.cornerRadius = self.frame.size.width / 2
+        self.clipsToBounds = true
     }
     
 }

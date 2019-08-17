@@ -11,20 +11,24 @@ import UIKit
 class ContactsViewController: UIViewController {
 
     @IBOutlet weak var contactsTableView: UITableView!
+    @IBOutlet weak var addBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var groupsBarButtonItem: UIBarButtonItem!
+    
+    static let sectionHeaderHeight: CGFloat = 45.0
     
     var contacts: [Contact]?
     var contactsDict: [String: [Contact]]?
     
     // MARK: - View life cycle methods
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        applyUICustomization()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchContacts()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     // MARK: - Custom methods
@@ -36,6 +40,19 @@ class ContactsViewController: UIViewController {
                 self.contactsTableView.reloadData()
             }
         }
+    }
+    
+    func applyUICustomization() {
+        
+        // Color
+        groupsBarButtonItem.applyTintColor(color: UIColor.menuGreenColor())
+        addBarButtonItem.applyTintColor(color: UIColor.menuGreenColor())
+        contactsTableView.sectionIndexColor = UIColor.gray
+        contactsTableView.separatorColor = UIColor.veryLightGray()
+        
+        // Title text
+        title = "Contact"
+        navigationController?.navigationBar.titleTextAttributes = ContactsManager.navigationTitleTextAttributes()
     }
 
 }
@@ -77,6 +94,14 @@ extension ContactsViewController: UITableViewDataSource {
         return contactsDict?.keys.sorted()[section]
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let header = view as? UITableViewHeaderFooterView {
+            header.backgroundView?.backgroundColor = UIColor.lightGray()
+            header.textLabel?.textColor = UIColor.black
+            header.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        }
+    }
+    
 }
 
 // MARK: - UITableViewDelegate methods
@@ -84,11 +109,19 @@ extension ContactsViewController: UITableViewDataSource {
 extension ContactsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64.0
+        return ContactTableViewCell.cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return ContactsViewController.sectionHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
     }
     
 }

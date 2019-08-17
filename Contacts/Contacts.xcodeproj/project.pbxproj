@@ -105,6 +105,7 @@
 		85029C702307C89900124F82 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				85BF7A5E230847DF002A8945 /* Custom Class */,
 				85029CB72307D43100124F82 /* Models */,
 				85029CB42307D2EB00124F82 /* Shared */,
 				85029CB22307CE4500124F82 /* Cells */,
@@ -199,6 +200,13 @@
 				85029CB82307D4EC00124F82 /* Contact.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		85BF7A5E230847DF002A8945 /* Custom Class */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Custom Class";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
