@@ -134,7 +134,7 @@ class ContactsManager: NSObject {
             let indexKey = contact.fullName().first?.uppercased() ?? ""
             if !Array(contactsDict.keys).contains(indexKey) && Character(indexKey).isLetter {
                 contactsDict[indexKey] = Array()
-            } else {
+            } else if !Character(indexKey).isLetter {
                 contactsDict[nonLetterIndex] = Array()
             }
         }

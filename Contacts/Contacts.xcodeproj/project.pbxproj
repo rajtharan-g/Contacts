@@ -232,12 +232,20 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		855CF80E2309C73000D551F2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				85BF7A6123086361002A8945 /* ContactAction.xib */,
+				85BF7A632308653B002A8945 /* ContactActionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		85BF7A5E230847DF002A8945 /* Custom Class */ = {
 			isa = PBXGroup;
 			children = (
+				855CF80E2309C73000D551F2 /* Views */,
 				855CF80523097D6E00D551F2 /* CustomLabel.swift */,
-				85BF7A6123086361002A8945 /* ContactAction.xib */,
-				85BF7A632308653B002A8945 /* ContactActionView.swift */,
 				85BF7A6923089E62002A8945 /* CustomImageView.swift */,
 				855CF7FF2309671A00D551F2 /* GradientView.swift */,
 				855CF80923097E0200D551F2 /* CustomTextField.swift */,

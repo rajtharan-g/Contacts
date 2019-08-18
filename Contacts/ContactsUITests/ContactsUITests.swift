@@ -50,7 +50,7 @@ class ContactsUITests: XCTestCase {
                 // Back
                 app.navigationBars.buttons.element(boundBy: 0).tap()
             }
-            waitForExpectations(timeout: 10.0, handler: nil)
+            waitForExpectations(timeout: 20.0, handler: nil)
             XCTAssertTrue(true, "Finished testing the table cells")
         } else {
             XCTAssert(false, "Table view cells not found")
@@ -64,14 +64,15 @@ class ContactsUITests: XCTestCase {
             let promise = expectation(description: "Wait for table cells")
             let tableCell = tableCells.firstMatch
             tableCell.tap()
-            
-            // Check if all labels exists
-            XCTAssertTrue(app.staticTexts["contactNameLabel"].exists)
-            XCTAssertTrue(app.staticTexts["mobileValueLabel"].exists)
-            XCTAssertTrue(app.staticTexts["emailValueLabel"].exists)
+        
+            // Check if all buttons exist
+            XCTAssertTrue(app.buttons["callActionViewButton"].exists)
+            XCTAssertTrue(app.buttons["emailActionViewButton"].exists)
+            XCTAssertTrue(app.buttons["messageActionViewButton"].exists)
+            XCTAssertTrue(app.buttons["favoriteActionViewButton"].exists)
             
             promise.fulfill()
-            waitForExpectations(timeout: 10.0, handler: nil)
+            waitForExpectations(timeout: 20.0, handler: nil)
         } else {
             XCTAssert(false, "Table view cells not found")
         }
@@ -95,7 +96,7 @@ class ContactsUITests: XCTestCase {
             XCTAssertTrue(app.staticTexts["emailLabel"].exists)
             
             promise.fulfill()
-            waitForExpectations(timeout: 10.0, handler: nil)
+            waitForExpectations(timeout: 20.0, handler: nil)
         } else {
             XCTAssert(false, "Table view cells not found")
         }

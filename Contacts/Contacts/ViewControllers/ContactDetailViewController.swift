@@ -11,21 +11,20 @@ import MessageUI
 
 class ContactDetailViewController: UIViewController {
 
-    @IBOutlet weak var contactDetailView: GradientView!
+    @IBOutlet weak var contactDetailView: UIView!
     @IBOutlet weak var contactImageView: CircularBorderedImageView!
     @IBOutlet weak var contactNameLabel: UILabel!
     @IBOutlet weak var messageActionView: ContactActionView!
     @IBOutlet weak var callActionView: ContactActionView!
     @IBOutlet weak var emailActionView: ContactActionView!
     @IBOutlet weak var favoriteActionView: ContactActionView!
-    @IBOutlet weak var mobileTextLabel: UILabel!
-    @IBOutlet weak var emailTextLabel: UILabel!
-    @IBOutlet weak var mobileValueLabel: UILabel!
-    @IBOutlet weak var emailValueLabel: UILabel!
+    @IBOutlet weak var mobileTextLabel: CustomGrayLabel!
+    @IBOutlet weak var emailTextLabel: CustomGrayLabel!
+    @IBOutlet weak var mobileValueLabel: CustomBlackLabel!
+    @IBOutlet weak var emailValueLabel: CustomBlackLabel!
     
     var contact: Contact!
     var contactDetail: ContactDetail?
-    var gradientLayer: CAGradientLayer?
     
     // MARK: - View life cycle methods
     
@@ -38,11 +37,6 @@ class ContactDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchContatDetail()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        gradientLayer?.frame = contactDetailView.bounds
     }
     
     // MARK: - IBAction methods
@@ -82,18 +76,10 @@ class ContactDetailViewController: UIViewController {
     func applyUICustomization() {
         
         // Color
-        mobileTextLabel.textColor = UIColor.appBlackColor(alpha: 0.5)
-        emailTextLabel.textColor = UIColor.appBlackColor(alpha: 0.5)
-        mobileValueLabel.textColor = UIColor.appBlackColor()
-        emailValueLabel.textColor = UIColor.appBlackColor()
         navigationItem.rightBarButtonItem?.applyTintColor(color: UIColor.menuGreenColor())
         navigationController?.navigationBar.tintColor = UIColor.menuGreenColor()
         
         // Font
-        mobileTextLabel.font = UIFont.systemFont(ofSize: 16.0)
-        emailTextLabel.font = UIFont.systemFont(ofSize: 16.0)
-        mobileValueLabel.font = UIFont.systemFont(ofSize: 16.0)
-        emailValueLabel.font = UIFont.systemFont(ofSize: 16.0)
         contactNameLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
         
         // Text
@@ -110,6 +96,10 @@ class ContactDetailViewController: UIViewController {
         contactNameLabel.accessibilityIdentifier = "contactNameLabel"
         mobileValueLabel.accessibilityIdentifier = "mobileValueLabel"
         emailValueLabel.accessibilityIdentifier = "emailValueLabel"
+        callActionView.actionButton.accessibilityIdentifier = "callActionViewButton"
+        emailActionView.actionButton.accessibilityIdentifier = "emailActionViewButton"
+        messageActionView.actionButton.accessibilityIdentifier = "messageActionViewButton"
+        favoriteActionView.actionButton.accessibilityIdentifier = "favoriteActionViewButton"
     }
     
     func setDelegate() {
@@ -140,7 +130,7 @@ extension ContactDetailViewController: ContactActionViewDelegate {
     }
     
     func callActionPressed() {
-        if let url = URL(string: "tel://\(contactDetail?.phone ?? "")"), UIApplication.shared.canOpenURL(url) {
+        if let phone = contactDetail?.phone, !phone.isEmpty, let url = URL(string: "tel://\(phone)"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
             let alert = UIAlertController(title: nil, message: Constants.alertForCall, preferredStyle: .alert)

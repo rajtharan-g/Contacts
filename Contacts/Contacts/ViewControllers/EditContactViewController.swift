@@ -48,9 +48,13 @@ class EditContactViewController: UIViewController {
     
     override func viewWillAppear(_ animated:Bool) {
         super.viewWillAppear(animated)
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillBeHidden), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
 
     // MARK: - IBAction methods
@@ -60,11 +64,7 @@ class EditContactViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
-        if type == .update {
-            updateContact()
-        } else {
-            createContact()
-        }
+        updateOrCreateContact()
     }
     
     @IBAction func cameraButtonPressed(_ sender: UIButton) {
@@ -72,6 +72,14 @@ class EditContactViewController: UIViewController {
     }
     
     // MARK: - Custom methods
+    
+    func updateOrCreateContact() {
+        if type == .update {
+            updateContact()
+        } else {
+            createContact()
+        }
+    }
     
     func createContact() {
         showSpinner(onView: self.view)
@@ -248,7 +256,13 @@ class EditContactViewController: UIViewController {
 extension EditContactViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        let nextTag = textField.tag + 1
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            updateOrCreateContact()
+            textField.resignFirstResponder()
+        }
         return true
     }
     

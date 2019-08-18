@@ -20,7 +20,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="S3V-Ip-6jQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ContactCellIdentifier" rowHeight="64" id="DdL-Ie-T4f" customClass="ContactTableViewCell" customModule="Contacts" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="64"/>
@@ -109,7 +109,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQz-k7-9R1" customClass="GradientView" customModule="Contacts" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w5F-GH-aG8" customClass="GradientView" customModule="Contacts" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="335"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQz-k7-9R1">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="335"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vI-wX-iP7">
@@ -126,22 +130,17 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9yv-BG-jJJ" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="81" height="70"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kp7-nL-Ojh" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="81" y="0.0" width="80.5" height="70"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vR0-wt-1Ya" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="161.5" y="0.0" width="81" height="70"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cri-rd-r0J" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="242.5" y="0.0" width="80.5" height="70"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="vR0-wt-1Ya" firstAttribute="width" secondItem="9yv-BG-jJJ" secondAttribute="width" id="3Mw-hn-FiU"/>
                                             <constraint firstAttribute="height" constant="70" id="4hJ-wY-xV2"/>
@@ -189,7 +188,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ADe-AJ-nsf">
                                 <rect key="frame" x="0.0" y="335" width="375" height="55"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXk-6p-ZFu">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXk-6p-ZFu" customClass="CustomGrayLabel" customModule="Contacts" customModuleProvider="target">
                                         <rect key="frame" x="24" y="27.5" width="76" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="76" id="LUo-qs-342"/>
@@ -198,7 +197,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRq-hB-tNO">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRq-hB-tNO" customClass="CustomBlackLabel" customModule="Contacts" customModuleProvider="target">
                                         <rect key="frame" x="132" y="27.5" width="219" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -225,7 +224,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o1s-7V-kbK">
                                 <rect key="frame" x="0.0" y="391" width="375" height="55"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVF-Y1-kfT">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVF-Y1-kfT" customClass="CustomGrayLabel" customModule="Contacts" customModuleProvider="target">
                                         <rect key="frame" x="24" y="27.5" width="76" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="76" id="24l-ht-rTL"/>
@@ -234,7 +233,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuQ-oz-Toa">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuQ-oz-Toa" customClass="CustomBlackLabel" customModule="Contacts" customModuleProvider="target">
                                         <rect key="frame" x="132" y="27.5" width="219" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -262,18 +261,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Iim-V8-5qx" secondAttribute="trailing" id="3nW-oA-V0h"/>
+                            <constraint firstItem="w5F-GH-aG8" firstAttribute="leading" secondItem="OQz-k7-9R1" secondAttribute="leading" id="5oT-Tt-4Oe"/>
                             <constraint firstItem="6MW-Oo-DL2" firstAttribute="trailing" secondItem="ADe-AJ-nsf" secondAttribute="trailing" id="8qw-Yb-OhB"/>
                             <constraint firstItem="OQz-k7-9R1" firstAttribute="top" secondItem="6MW-Oo-DL2" secondAttribute="top" constant="-20" id="CHx-Zs-QJL"/>
                             <constraint firstItem="6MW-Oo-DL2" firstAttribute="trailing" secondItem="Lap-3m-U5x" secondAttribute="trailing" id="EXC-zJ-6Vh"/>
                             <constraint firstItem="Lap-3m-U5x" firstAttribute="leading" secondItem="6MW-Oo-DL2" secondAttribute="leading" constant="10" id="FJF-9U-K0b"/>
                             <constraint firstItem="Iim-V8-5qx" firstAttribute="top" secondItem="o1s-7V-kbK" secondAttribute="bottom" id="LRM-oo-1aD"/>
+                            <constraint firstItem="w5F-GH-aG8" firstAttribute="top" secondItem="OQz-k7-9R1" secondAttribute="top" id="Msd-TE-kyQ"/>
                             <constraint firstItem="o1s-7V-kbK" firstAttribute="trailing" secondItem="6MW-Oo-DL2" secondAttribute="trailing" id="On1-xW-Vog"/>
                             <constraint firstItem="OQz-k7-9R1" firstAttribute="leading" secondItem="6MW-Oo-DL2" secondAttribute="leading" id="QcC-c8-QWt"/>
                             <constraint firstItem="Iim-V8-5qx" firstAttribute="leading" secondItem="MJo-fx-wQd" secondAttribute="leading" constant="10" id="Tvh-we-CbU"/>
                             <constraint firstItem="o1s-7V-kbK" firstAttribute="leading" secondItem="6MW-Oo-DL2" secondAttribute="leading" id="ajB-49-nO9"/>
+                            <constraint firstItem="w5F-GH-aG8" firstAttribute="bottom" secondItem="OQz-k7-9R1" secondAttribute="bottom" id="cAn-mb-C7y"/>
                             <constraint firstItem="ADe-AJ-nsf" firstAttribute="top" secondItem="OQz-k7-9R1" secondAttribute="bottom" id="crE-S0-pQo"/>
                             <constraint firstItem="o1s-7V-kbK" firstAttribute="top" secondItem="Lap-3m-U5x" secondAttribute="bottom" id="po6-0o-zTz"/>
                             <constraint firstItem="Lap-3m-U5x" firstAttribute="top" secondItem="ADe-AJ-nsf" secondAttribute="bottom" id="s5D-pC-XTR"/>
+                            <constraint firstItem="w5F-GH-aG8" firstAttribute="trailing" secondItem="OQz-k7-9R1" secondAttribute="trailing" id="yXd-ZQ-BvH"/>
                             <constraint firstItem="6MW-Oo-DL2" firstAttribute="trailing" secondItem="OQz-k7-9R1" secondAttribute="trailing" id="yoH-mz-Cw3"/>
                             <constraint firstItem="ADe-AJ-nsf" firstAttribute="leading" secondItem="6MW-Oo-DL2" secondAttribute="leading" id="znb-Mw-cpY"/>
                         </constraints>
