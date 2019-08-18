@@ -50,6 +50,15 @@ class ContactDetailViewController: UIViewController {
         gradientLayer?.frame = contactDetailView.bounds
     }
     
+    // MARK: - IBAction methods
+    
+    @IBAction func editButtonPressed(_ sender: Any) {
+        let editContactVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "EditContactVC") as! EditContactViewController
+        editContactVC.contactDetail = contactDetail
+        present(UINavigationController(rootViewController: editContactVC), animated: true, completion: nil)
+    }
+    
+    
     // MARK: - Custom methods
     
     func applyContactDetails(contactDetail: ContactDetail?) {

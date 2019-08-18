@@ -58,18 +58,38 @@ class ContactsManager: NSObject {
     
     func updateFavouriteStatus(contactDetail: ContactDetail?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
         if let contactId = contactDetail?.id, let url = URL(string: "\(kContactDetailURL)/\(contactId).json") {
-            var request = URLRequest(url: url)
-            request.httpMethod = "PUT"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let jsonData = try! JSONSerialization.data(withJSONObject: ["favorite" : !(contactDetail?.isFavourite ?? false)], options: [])
-            request.httpBody = jsonData
-            URLSession.shared.dataTask(with: request) { data, response, error in
+            updateContactDetail(url: url, json: ["favorite" : !(contactDetail?.isFavourite ?? false)]) { (data, response, error) in
                 if error == nil {
                     contactDetail?.isFavourite = !(contactDetail?.isFavourite ?? false)
                 }
                 completionHandler(contactDetail, error)
-            }.resume()
+            }
         }
+    }
+    
+    func updateContactDetail(contactDetail: ContactDetail?, json: [String: String?]?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
+        if let contactId = contactDetail?.id, let url = URL(string: "\(kContactDetailURL)/\(contactId).json"), let json = json {
+            updateContactDetail(url: url, json: json as [String : Any]) { (data, response, error) in
+                if error == nil {
+                    contactDetail?.firstName = json["first_name"] ?? ""
+                    contactDetail?.lastName = json["last_name"] ?? ""
+                    contactDetail?.phone = json["phone_number"] ?? ""
+                    contactDetail?.email = json["email"] ?? ""
+                }
+                completionHandler(contactDetail, error)
+            }
+        }
+    }
+    
+    func updateContactDetail(url:URL, json:[String: Any],  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
+        request.httpBody = jsonData
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            completionHandler(data, response, error)
+        }.resume()
     }
     
     // MARK: - Custom methods
