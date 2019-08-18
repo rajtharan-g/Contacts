@@ -55,9 +55,9 @@ class ContactDetailViewController: UIViewController {
     @IBAction func editButtonPressed(_ sender: Any) {
         let editContactVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "EditContactVC") as! EditContactViewController
         editContactVC.contactDetail = contactDetail
+        editContactVC.type = .update
         present(UINavigationController(rootViewController: editContactVC), animated: true, completion: nil)
     }
-    
     
     // MARK: - Custom methods
     

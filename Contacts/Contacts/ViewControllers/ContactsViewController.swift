@@ -31,6 +31,14 @@ class ContactsViewController: UIViewController {
         fetchContacts()
     }
     
+    // MARK: - IBAction methods
+    
+    @IBAction func addButtonPressed(_ sender: Any) {
+        let editContactVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "EditContactVC") as! EditContactViewController
+        editContactVC.type = .create
+        present(UINavigationController(rootViewController: editContactVC), animated: true, completion: nil)
+    }
+    
     // MARK: - Custom methods
     
     func fetchContacts() {

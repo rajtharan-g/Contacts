@@ -85,7 +85,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Contact" id="ezG-zg-j3l">
                         <barButtonItem key="leftBarButtonItem" title="Groups" id="6qK-lP-Q9E"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kEG-Xv-w96"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kEG-Xv-w96">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="BYZ-38-t0r" id="y1P-dy-3KZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addBarButtonItem" destination="kEG-Xv-w96" id="Ykq-Kd-slL"/>
@@ -108,14 +112,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQz-k7-9R1" customClass="GradientView" customModule="Contacts" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="335"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O8p-Pa-zYT" customClass="CircularBorderedImageView" customModule="Contacts" customModuleProvider="target">
-                                        <rect key="frame" x="127" y="54" width="121" height="121"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="O8p-Pa-zYT" secondAttribute="height" multiplier="1:1" id="Uu4-F6-h0y"/>
-                                        </constraints>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vI-wX-iP7">
-                                        <rect key="frame" x="166.5" y="183" width="42" height="25"/>
+                                        <rect key="frame" x="166.5" y="182" width="42" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="WmY-nj-0mx"/>
                                         </constraints>
@@ -124,41 +122,29 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="BKl-8B-eNH">
-                                        <rect key="frame" x="26" y="223" width="323" height="100"/>
+                                        <rect key="frame" x="26" y="253" width="323" height="70"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9yv-BG-jJJ" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="81" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="81" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="dfg-3C-tYC"/>
-                                                </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kp7-nL-Ojh" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
-                                                <rect key="frame" x="81" y="0.0" width="80.5" height="100"/>
+                                                <rect key="frame" x="81" y="0.0" width="80.5" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="pGk-ah-oST"/>
-                                                </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vR0-wt-1Ya" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
-                                                <rect key="frame" x="161.5" y="0.0" width="81" height="100"/>
+                                                <rect key="frame" x="161.5" y="0.0" width="81" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="Uts-RY-Ttp"/>
-                                                </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cri-rd-r0J" customClass="ContactActionView" customModule="Contacts" customModuleProvider="target">
-                                                <rect key="frame" x="242.5" y="0.0" width="80.5" height="100"/>
+                                                <rect key="frame" x="242.5" y="0.0" width="80.5" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="o7q-58-wDB"/>
-                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="vR0-wt-1Ya" firstAttribute="width" secondItem="9yv-BG-jJJ" secondAttribute="width" id="3Mw-hn-FiU"/>
-                                            <constraint firstAttribute="height" constant="100" id="4hJ-wY-xV2"/>
+                                            <constraint firstAttribute="height" constant="70" id="4hJ-wY-xV2"/>
                                             <constraint firstAttribute="bottom" secondItem="Cri-rd-r0J" secondAttribute="bottom" id="4pi-Cq-GdI"/>
                                             <constraint firstItem="vR0-wt-1Ya" firstAttribute="leading" secondItem="Kp7-nL-Ojh" secondAttribute="trailing" id="4rf-Lr-AZN"/>
                                             <constraint firstItem="9yv-BG-jJJ" firstAttribute="top" secondItem="BKl-8B-eNH" secondAttribute="top" id="7he-fB-NwQ"/>
@@ -177,17 +163,25 @@
                                             <constraint firstItem="Kp7-nL-Ojh" firstAttribute="leading" secondItem="9yv-BG-jJJ" secondAttribute="trailing" id="uB2-Ts-3Pb"/>
                                         </constraints>
                                     </stackView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_photo" translatesAutoresizingMaskIntoConstraints="NO" id="AZM-ee-2Hr" customClass="CircularBorderedImageView" customModule="Contacts" customModuleProvider="target">
+                                        <rect key="frame" x="124.5" y="44" width="126" height="126"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="AZM-ee-2Hr" secondAttribute="height" multiplier="1:1" id="3pN-XV-D1J"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="O8p-Pa-zYT" secondAttribute="trailing" constant="127" id="CDR-9a-lQT"/>
-                                    <constraint firstItem="2vI-wX-iP7" firstAttribute="top" secondItem="O8p-Pa-zYT" secondAttribute="bottom" constant="8" id="EJf-TB-zxz"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AZM-ee-2Hr" secondAttribute="trailing" constant="100" id="4jf-Hp-5uF"/>
+                                    <constraint firstItem="AZM-ee-2Hr" firstAttribute="top" secondItem="OQz-k7-9R1" secondAttribute="top" constant="44" id="9tN-UE-Suw"/>
+                                    <constraint firstItem="AZM-ee-2Hr" firstAttribute="width" secondItem="AZM-ee-2Hr" secondAttribute="height" multiplier="1:1" id="Eho-Lj-xsN"/>
                                     <constraint firstAttribute="trailing" secondItem="BKl-8B-eNH" secondAttribute="trailing" constant="26" id="FcI-Lk-xKU"/>
-                                    <constraint firstItem="O8p-Pa-zYT" firstAttribute="top" secondItem="OQz-k7-9R1" secondAttribute="top" constant="54" id="GOq-gr-ESF"/>
+                                    <constraint firstItem="AZM-ee-2Hr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OQz-k7-9R1" secondAttribute="leading" constant="100" id="IkF-qY-wCP"/>
                                     <constraint firstItem="BKl-8B-eNH" firstAttribute="leading" secondItem="OQz-k7-9R1" secondAttribute="leading" constant="26" id="KEv-3c-tVB"/>
                                     <constraint firstItem="BKl-8B-eNH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2vI-wX-iP7" secondAttribute="bottom" constant="8" id="U3X-Ny-Rfs"/>
-                                    <constraint firstItem="O8p-Pa-zYT" firstAttribute="leading" secondItem="OQz-k7-9R1" secondAttribute="leading" constant="127" id="Ubo-G5-bR4"/>
                                     <constraint firstAttribute="bottom" secondItem="BKl-8B-eNH" secondAttribute="bottom" constant="12" id="aVs-IG-YUQ"/>
+                                    <constraint firstItem="2vI-wX-iP7" firstAttribute="top" secondItem="AZM-ee-2Hr" secondAttribute="bottom" constant="12" id="ahs-yv-IYp"/>
                                     <constraint firstItem="2vI-wX-iP7" firstAttribute="centerX" secondItem="OQz-k7-9R1" secondAttribute="centerX" id="ay6-Z9-la3"/>
+                                    <constraint firstItem="AZM-ee-2Hr" firstAttribute="centerX" secondItem="OQz-k7-9R1" secondAttribute="centerX" id="cc7-78-DeG"/>
                                     <constraint firstAttribute="height" constant="335" id="fkl-MO-Ta2"/>
                                 </constraints>
                             </view>
@@ -296,7 +290,7 @@
                     <connections>
                         <outlet property="callActionView" destination="Kp7-nL-Ojh" id="k8b-Tp-asn"/>
                         <outlet property="contactDetailView" destination="OQz-k7-9R1" id="2PR-uv-mxs"/>
-                        <outlet property="contactImageView" destination="O8p-Pa-zYT" id="D4l-us-fg4"/>
+                        <outlet property="contactImageView" destination="AZM-ee-2Hr" id="0Gx-TF-dG8"/>
                         <outlet property="contactNameLabel" destination="2vI-wX-iP7" id="Y5y-jP-2bU"/>
                         <outlet property="emailActionView" destination="vR0-wt-1Ya" id="xro-tA-3tH"/>
                         <outlet property="emailTextLabel" destination="xVF-Y1-kfT" id="yY8-PO-yFt"/>
@@ -345,13 +339,13 @@
                                                     <action selector="cameraButtonPressed:" destination="CBI-Hx-M5S" eventType="touchUpInside" id="aH6-D3-Cge"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkk-ln-b0Z">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkk-ln-b0Z" customClass="CustomGrayLabel" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="24" y="220" width="42" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I1b-FU-QgT">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I1b-FU-QgT" customClass="CustomBlackTextField" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="86" y="216" width="265" height="29"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -367,13 +361,13 @@
                                                     <constraint firstAttribute="height" constant="1" id="LYg-DE-Msd"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROk-Bw-BMW">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROk-Bw-BMW" customClass="CustomGrayLabel" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="24" y="282" width="42" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8d-NC-m1M">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8d-NC-m1M" customClass="CustomBlackTextField" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="86" y="278" width="265" height="29"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -386,13 +380,13 @@
                                                 <rect key="frame" x="20" y="323" width="355" height="1"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGV-jv-cEn">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGV-jv-cEn" customClass="CustomGrayLabel" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="24" y="344" width="42" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sl9-qX-eoV">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sl9-qX-eoV" customClass="CustomBlackTextField" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="86" y="340" width="265" height="29"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -405,13 +399,13 @@
                                                 <rect key="frame" x="20" y="385" width="355" height="1"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAE-zN-TqD">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAE-zN-TqD" customClass="CustomGrayLabel" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="24" y="406" width="42" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rgU-Xr-z86">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rgU-Xr-z86" customClass="CustomBlackTextField" customModule="Contacts" customModuleProvider="target">
                                                 <rect key="frame" x="86" y="402" width="265" height="29"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

@@ -13,22 +13,27 @@ enum AttachmentType: String {
     case camera = "Camera", photoLibrary = "Gallery"
 }
 
+enum EditContactType {
+    case update, create
+}
+
 class EditContactViewController: UIViewController {
 
     @IBOutlet weak var contactView: GradientView!
     @IBOutlet weak var contactImageView: CircularBorderedImageView!
     @IBOutlet weak var uploadImageButton: UIButton!
-    @IBOutlet weak var firstNameLabel: UILabel!
-    @IBOutlet weak var firstNameTextField: UITextField!
-    @IBOutlet weak var lastNameLabel: UILabel!
-    @IBOutlet weak var lastNameTextField: UITextField!
-    @IBOutlet weak var mobileLabel: UILabel!
-    @IBOutlet weak var mobileTextField: UITextField!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var firstNameLabel: CustomGrayLabel!
+    @IBOutlet weak var firstNameTextField: CustomBlackTextField!
+    @IBOutlet weak var lastNameLabel: CustomGrayLabel!
+    @IBOutlet weak var lastNameTextField: CustomBlackTextField!
+    @IBOutlet weak var mobileLabel: CustomGrayLabel!
+    @IBOutlet weak var mobileTextField: CustomBlackTextField!
+    @IBOutlet weak var emailLabel: CustomGrayLabel!
+    @IBOutlet weak var emailTextField: CustomBlackTextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
     var contactDetail: ContactDetail?
+    var type: EditContactType?
     var activeField: UITextField?
     
     // MARK: - View life cycle methods
@@ -42,8 +47,8 @@ class EditContactViewController: UIViewController {
     override func viewWillAppear(_ animated:Bool) {
         super.viewWillAppear(animated)
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillBeHidden(aNotification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillShow(aNotification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(keyboardWillBeHidden), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
 
     // MARK: - IBAction methods
@@ -53,6 +58,36 @@ class EditContactViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
+        if type == .update {
+            updateContact()
+        } else {
+            createContact()
+        }
+    }
+    
+    @IBAction func cameraButtonPressed(_ sender: UIButton) {
+        displayImageOptionsActionSheet(sender: sender)
+    }
+    
+    // MARK: - Custom methods
+    
+    func createContact() {
+        ContactsManager.shared.createContactDetail(json: contactProperties()) { (contactDetail, error, validationError)  in
+            DispatchQueue.main.async {
+                self.contactDetail = contactDetail
+                if let validationError = validationError {
+                    let alert = UIAlertController(title: nil, message: validationError.errors?.first, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                } else {
+                    self.applyContactDetails(contactDetail: contactDetail)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    func updateContact() {
         ContactsManager.shared.updateContactDetail(contactDetail: contactDetail, json: contactProperties()) { (contactDetail, error) in
             DispatchQueue.main.async {
                 self.contactDetail = contactDetail
@@ -60,10 +95,6 @@ class EditContactViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }
         }
-    }
-    
-    @IBAction func cameraButtonPressed(_ sender: UIButton) {
-        displayImageOptionsActionSheet(sender: sender)
     }
     
     func displayImageOptionsActionSheet(sender: UIButton) {
@@ -187,16 +218,16 @@ class EditContactViewController: UIViewController {
         self.scrollView.scrollIndicatorInsets = contentInsets
     }
     
-    @objc func keyboardWillShow(aNotification: NSNotification) {
-        var info = aNotification.userInfo!
-        let kbSize: CGSize = ((info["UIKeyboardFrameEndUserInfoKey"] as? CGRect)?.size)!
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let kbSize = keyboardValue.cgRectValue.size
         let contentInsets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: kbSize.height, right: 0.0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
         var aRect: CGRect = self.view.frame
         aRect.size.height -= kbSize.height
-        if !aRect.contains(activeField!.frame.origin) {
-            self.scrollView.scrollRectToVisible(activeField!.frame, animated: true)
+        if let activeField = activeField, !aRect.contains(activeField.frame.origin) {
+            self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
         }
     }
 

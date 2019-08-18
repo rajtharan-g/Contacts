@@ -12,7 +12,7 @@ class GradientView: UIView {
 
     var gradientLayer: CAGradientLayer?
     
-    // MARK: - Initializer methods
+    // MARK: - Initialization methods
     
     override func awakeFromNib() {
         super.awakeFromNib()

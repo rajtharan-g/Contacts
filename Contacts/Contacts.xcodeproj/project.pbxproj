@@ -21,6 +21,9 @@
 		855CF7FC230948BD00D551F2 /* EditContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF7FB230948BD00D551F2 /* EditContactViewController.swift */; };
 		855CF7FE2309611500D551F2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF7FD2309611500D551F2 /* Constants.swift */; };
 		855CF8002309671A00D551F2 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF7FF2309671A00D551F2 /* GradientView.swift */; };
+		855CF8022309772700D551F2 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF8012309772700D551F2 /* Error.swift */; };
+		855CF80623097D6E00D551F2 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF80523097D6E00D551F2 /* CustomLabel.swift */; };
+		855CF80A23097E0200D551F2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF80923097E0200D551F2 /* CustomTextField.swift */; };
 		85BF7A6223086361002A8945 /* ContactAction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85BF7A6123086361002A8945 /* ContactAction.xib */; };
 		85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A632308653B002A8945 /* ContactActionView.swift */; };
 		85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A652308696D002A8945 /* ContactDetailViewController.swift */; };
@@ -66,6 +69,9 @@
 		855CF7FB230948BD00D551F2 /* EditContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactViewController.swift; sourceTree = "<group>"; };
 		855CF7FD2309611500D551F2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		855CF7FF2309671A00D551F2 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		855CF8012309772700D551F2 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		855CF80523097D6E00D551F2 /* CustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		855CF80923097E0200D551F2 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		85BF7A6123086361002A8945 /* ContactAction.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactAction.xib; sourceTree = "<group>"; };
 		85BF7A632308653B002A8945 /* ContactActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactActionView.swift; sourceTree = "<group>"; };
 		85BF7A652308696D002A8945 /* ContactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +224,7 @@
 			children = (
 				85029CB82307D4EC00124F82 /* Contact.swift */,
 				85BF7A6723087AF2002A8945 /* ContactDetail.swift */,
+				855CF8012309772700D551F2 /* Error.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,10 +232,12 @@
 		85BF7A5E230847DF002A8945 /* Custom Class */ = {
 			isa = PBXGroup;
 			children = (
+				855CF80523097D6E00D551F2 /* CustomLabel.swift */,
 				85BF7A6123086361002A8945 /* ContactAction.xib */,
 				85BF7A632308653B002A8945 /* ContactActionView.swift */,
 				85BF7A6923089E62002A8945 /* CustomImageView.swift */,
 				855CF7FF2309671A00D551F2 /* GradientView.swift */,
+				855CF80923097E0200D551F2 /* CustomTextField.swift */,
 			);
 			path = "Custom Class";
 			sourceTree = "<group>";
@@ -372,11 +381,14 @@
 				85BF7A6823087AF2002A8945 /* ContactDetail.swift in Sources */,
 				85029CB62307D2FC00124F82 /* ContactsManager.swift in Sources */,
 				85029CAD2307CB0700124F82 /* ContactsViewController.swift in Sources */,
+				855CF80623097D6E00D551F2 /* CustomLabel.swift in Sources */,
 				85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */,
 				85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */,
 				85BF7A6A23089E62002A8945 /* CustomImageView.swift in Sources */,
 				855CF8002309671A00D551F2 /* GradientView.swift in Sources */,
+				855CF80A23097E0200D551F2 /* CustomTextField.swift in Sources */,
 				855CF7FC230948BD00D551F2 /* EditContactViewController.swift in Sources */,
+				855CF8022309772700D551F2 /* Error.swift in Sources */,
 				855CF7FE2309611500D551F2 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,8 +9,8 @@
 import UIKit
 
 let kBaseURL = "http://gojek-contacts-app.herokuapp.com/"
-let kContactsURL = "\(kBaseURL)contacts.json"
-let kContactDetailURL = "\(kBaseURL)contacts"
+let kContactsJsonURL = "\(kBaseURL)contacts.json"
+let kContactURL = "\(kBaseURL)contacts"
 
 class ContactsManager: NSObject {
     
@@ -21,7 +21,7 @@ class ContactsManager: NSObject {
     // MARK: - API methods
     
     func fetchContacts(completionHandler: @escaping ([String: [Contact]]?, Error?) -> Void) {
-        if let url = URL(string: kContactsURL) {
+        if let url = URL(string: kContactsJsonURL) {
             URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { (data, response, error) -> Void in
                 guard let data = data else {
                     print("Error: No data to decode")
@@ -39,7 +39,7 @@ class ContactsManager: NSObject {
     }
     
     func fetchContactDetail(contact:Contact, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
-        if let contactId = contact.id, let url = URL(string: "\(kContactDetailURL)/\(contactId).json") {
+        if let contactId = contact.id, let url = URL(string: "\(kContactURL)/\(contactId).json") {
             URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { (data, response, error) -> Void in
                 guard let data = data else {
                     print("Error: No data to decode")
@@ -57,8 +57,8 @@ class ContactsManager: NSObject {
     }
     
     func updateFavouriteStatus(contactDetail: ContactDetail?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
-        if let contactId = contactDetail?.id, let url = URL(string: "\(kContactDetailURL)/\(contactId).json") {
-            updateContactDetail(url: url, json: ["favorite" : !(contactDetail?.isFavourite ?? false)]) { (data, response, error) in
+        if let contactId = contactDetail?.id, let url = URL(string: "\(kContactURL)/\(contactId).json") {
+            updateContact(url: url, type:.update, json: ["favorite" : !(contactDetail?.isFavourite ?? false)]) { (data, response, error) in
                 if error == nil {
                     contactDetail?.isFavourite = !(contactDetail?.isFavourite ?? false)
                 }
@@ -68,22 +68,49 @@ class ContactsManager: NSObject {
     }
     
     func updateContactDetail(contactDetail: ContactDetail?, json: [String: String?]?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
-        if let contactId = contactDetail?.id, let url = URL(string: "\(kContactDetailURL)/\(contactId).json"), let json = json {
-            updateContactDetail(url: url, json: json as [String : Any]) { (data, response, error) in
-                if error == nil {
-                    contactDetail?.firstName = json["first_name"] ?? ""
-                    contactDetail?.lastName = json["last_name"] ?? ""
-                    contactDetail?.phone = json["phone_number"] ?? ""
-                    contactDetail?.email = json["email"] ?? ""
+        if let contactId = contactDetail?.id, let url = URL(string: "\(kContactURL)/\(contactId).json"), let json = json {
+            updateContact(url: url, type: .update, json: json as [String : Any]) { (data, response, error) in
+                guard let data = data else {
+                    print("Error: No data to decode")
+                    completionHandler(nil, error)
+                    return
                 }
-                completionHandler(contactDetail, error)
+                guard let contact = try? JSONDecoder().decode(ContactDetail.self, from: data) else {
+                    print("Error: Couldn't decode data into Contact")
+                    completionHandler(nil, error)
+                    return
+                }
+                completionHandler(contact, error)
             }
         }
     }
     
-    func updateContactDetail(url:URL, json:[String: Any],  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func createContactDetail(json: [String: String?]?, completionHandler: @escaping (ContactDetail?, Error?, ValidationError?) -> Void) {
+        if let url = URL(string: "\(kContactURL).json"), let json = json {
+            updateContact(url: url, type: .create, json: json as [String : Any]) { (data, response, error) in
+                guard let data = data else {
+                    print("Error: No data to decode")
+                    completionHandler(nil, error, nil)
+                    return
+                }
+                guard let contact = try? JSONDecoder().decode(ContactDetail.self, from: data) else {
+                    print("Error: Couldn't decode data into Contact")
+                    guard let errors = try? JSONDecoder().decode(ValidationError.self, from: data) else {
+                        print("Error: Couldn't decode data into ValidationError")
+                        completionHandler(nil, error, nil)
+                        return
+                    }
+                    completionHandler(nil, nil, errors)
+                    return
+                }
+                completionHandler(contact, error, nil)
+            }
+        }
+    }
+    
+    func updateContact(url:URL, type:EditContactType, json:[String: Any],  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
+        request.httpMethod = type == EditContactType.update ? "PUT" : "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
         request.httpBody = jsonData
