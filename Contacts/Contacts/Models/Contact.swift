@@ -10,7 +10,7 @@ import UIKit
 
 class Contact: Decodable {
     
-    let id: Int?
+    var id: Int?
     var firstName: String?
     var lastName: String?
     var contactImage: String?
@@ -24,6 +24,15 @@ class Contact: Decodable {
         case contactImage = "profile_pic"
         case isFavourite = "favorite"
         case url
+    }
+    
+    init(id: Int!, firstName: String!, lastName: String!, contactImage: String!, isFavourite: Bool!, url: String!) {
+        self.id = id
+        self.firstName = firstName
+        self.lastName = lastName
+        self.contactImage = contactImage
+        self.isFavourite = isFavourite
+        self.url = url
     }
 
 }

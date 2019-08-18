@@ -24,6 +24,7 @@
 		855CF8022309772700D551F2 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF8012309772700D551F2 /* Error.swift */; };
 		855CF80623097D6E00D551F2 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF80523097D6E00D551F2 /* CustomLabel.swift */; };
 		855CF80A23097E0200D551F2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF80923097E0200D551F2 /* CustomTextField.swift */; };
+		855CF80C2309A43000D551F2 /* MockObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF80B2309A43000D551F2 /* MockObjects.swift */; };
 		85BF7A6223086361002A8945 /* ContactAction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85BF7A6123086361002A8945 /* ContactAction.xib */; };
 		85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A632308653B002A8945 /* ContactActionView.swift */; };
 		85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A652308696D002A8945 /* ContactDetailViewController.swift */; };
@@ -72,6 +73,7 @@
 		855CF8012309772700D551F2 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		855CF80523097D6E00D551F2 /* CustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		855CF80923097E0200D551F2 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		855CF80B2309A43000D551F2 /* MockObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjects.swift; sourceTree = "<group>"; };
 		85BF7A6123086361002A8945 /* ContactAction.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactAction.xib; sourceTree = "<group>"; };
 		85BF7A632308653B002A8945 /* ContactActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactActionView.swift; sourceTree = "<group>"; };
 		85BF7A652308696D002A8945 /* ContactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				85029C862307C89F00124F82 /* ContactsTests.swift */,
 				85029C882307C89F00124F82 /* Info.plist */,
+				855CF80B2309A43000D551F2 /* MockObjects.swift */,
 			);
 			path = ContactsTests;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				855CF80C2309A43000D551F2 /* MockObjects.swift in Sources */,
 				85029C872307C89F00124F82 /* ContactsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

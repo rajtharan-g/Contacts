@@ -30,5 +30,9 @@ class ContactDetail: Contact {
         self.updatedAt = try container.decode(String?.self, forKey: .updatedAt)
         try super.init(from: decoder)
     }
+    
+    override init(id: Int!, firstName: String!, lastName: String!, contactImage: String!, isFavourite: Bool!, url: String!) {
+        super.init(id: id, firstName: firstName, lastName: lastName, contactImage: contactImage, isFavourite: isFavourite, url: url)
+    }
 
 }

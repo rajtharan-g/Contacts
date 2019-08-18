@@ -56,11 +56,18 @@ class ContactsManager: NSObject {
         }
     }
     
-    func updateFavouriteStatus(contactDetail: ContactDetail?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
+    func updateFavouriteStatus(contactDetail: Contact?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
         if let contactId = contactDetail?.id, let url = URL(string: "\(kContactURL)/\(contactId).json") {
             updateContact(url: url, type:.update, json: ["favorite" : !(contactDetail?.isFavourite ?? false)]) { (data, response, error) in
-                if error == nil {
-                    contactDetail?.isFavourite = !(contactDetail?.isFavourite ?? false)
+                guard let data = data else {
+                    print("Error: No data to decode")
+                    completionHandler(nil, error)
+                    return
+                }
+                guard let contactDetail = try? JSONDecoder().decode(ContactDetail.self, from: data) else {
+                    print("Error: Couldn't decode data into Contact")
+                    completionHandler(nil, error)
+                    return
                 }
                 completionHandler(contactDetail, error)
             }

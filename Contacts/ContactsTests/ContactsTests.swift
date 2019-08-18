@@ -10,25 +10,122 @@ import XCTest
 @testable import Contacts
 
 class ContactsTests: XCTestCase {
-
+    
+    static let responseTimeOut = 10.0
+    
+    var contactManager: ContactsManager!
+    var promise: XCTestExpectation!
+    
+    // MARK: - Test life cycle methods
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        contactManager = ContactsManager.shared
     }
-
+    
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        contactManager = nil
+        super.tearDown()
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    
+    // MARK: - Test methods
+    
+    func testFetchContacts() {
+        promise = expectation(description: "Fetch contacts expectation")
+        contactManager.fetchContacts { (contactsDict, error) in
+            XCTAssertNotNil(contactsDict, "ContactDict is nil")
+            XCTAssertNil(error, error?.localizedDescription ?? "Error is not nil")
+            self.promise.fulfill()
         }
+        waitForExpectations(timeout: ContactsTests.responseTimeOut, handler: nil)
     }
-
+    
+    func testFetchContactDetails() {
+        promise = expectation(description: "Fetch contacts details expectation")
+        let contact = ContactDetail.mockWith(id: 9344)
+        contactManager.fetchContactDetail(contact: contact) { (contactDetail, error) in
+            XCTAssertNotNil(contactDetail, "ContactDict is nil")
+            XCTAssertNil(error, error?.localizedDescription ?? "Error is not nil")
+            self.promise.fulfill()
+        }
+        waitForExpectations(timeout: ContactsTests.responseTimeOut, handler: nil)
+    }
+    
+    func testUpdateFavouriteStatus() {
+        promise = expectation(description: "Favourite update expectation")
+        let mockContact = ContactDetail.mockWith(id: 9344)
+        contactManager.updateFavouriteStatus(contactDetail: mockContact) { (contactDetail, error) in
+            if let mockContactFavourite = mockContact.isFavourite, let contactDetailFavourite = contactDetail?.isFavourite {
+                XCTAssert(contactDetailFavourite == !mockContactFavourite)
+            } else {
+                XCTFail("Favourite data is nil")
+            }
+            self.promise.fulfill()
+        }
+        waitForExpectations(timeout: ContactsTests.responseTimeOut, handler: nil)
+    }
+    
+    func testUpdateContactDetail() {
+        promise = expectation(description: "Favourite update expectation")
+        let mockContact = ContactDetail.mockWith(id: 9344)
+        let updatedJSon: [String: String] = ["first_name": "Test1", "last_name": "Test2", "phone_number": "9500243064", "email":"testing@test.com"]
+        contactManager.updateContactDetail(contactDetail: mockContact, json: updatedJSon) { (contactDetail, error) in
+            XCTAssertNotNil(contactDetail, "Contact is nil")
+            XCTAssertNil(error, error?.localizedDescription ?? "Error is not nil")
+            XCTAssertEqual(contactDetail?.firstName, "Test1")
+            XCTAssertEqual(contactDetail?.lastName, "Test2")
+            XCTAssertEqual(contactDetail?.phone, "9500243064")
+            XCTAssertEqual(contactDetail?.email, "testing@test.com")
+            self.promise.fulfill()
+        }
+        waitForExpectations(timeout: ContactsTests.responseTimeOut, handler: nil)
+    }
+    
+    func testCreateContactDetail() {
+        promise = expectation(description: "Favourite update expectation")
+        let updatedJSon: [String: String] = ["first_name": "New1", "last_name": "New2", "phone_number": "9500455554", "email":"9500455554@test.com"]
+        contactManager.createContactDetail(json: updatedJSon) { (contactDetail, error, validationError)  in
+            XCTAssertNotNil(contactDetail, "Contact is nil")
+            XCTAssertNil(error, error?.localizedDescription ?? "Error is not nil")
+            XCTAssertNil(validationError, validationError?.errors?.first ?? "Validation error is not nil")
+            XCTAssertEqual(contactDetail?.firstName, "New1")
+            XCTAssertEqual(contactDetail?.lastName, "New2")
+            XCTAssertEqual(contactDetail?.phone, "9500455554")
+            XCTAssertEqual(contactDetail?.email, "9500455554@test.com")
+            self.promise.fulfill()
+        }
+        waitForExpectations(timeout: ContactsTests.responseTimeOut, handler: nil)
+    }
+    
+    func testInvalidContactDetail() {
+        promise = expectation(description: "Favourite update expectation")
+        let updatedJSon: [String: String] = ["first_name": "Invalid", "last_name": "user", "phone_number": "invalid_number", "email":"invalid_email"]
+        contactManager.createContactDetail(json: updatedJSon) { (contactDetail, error, validationError)  in
+            XCTAssertNil(contactDetail, "Contact is not nil for invalid update")
+            XCTAssertNotNil(validationError, validationError?.errors?.first ?? "Validation error is not nil")
+            XCTAssertNil(error, error?.localizedDescription ?? "Error is not nil")
+            self.promise.fulfill()
+        }
+        waitForExpectations(timeout: ContactsTests.responseTimeOut, handler: nil)
+    }
+    
+    func testSortContacts() {
+        let contactA = ContactDetail.mockWith(id: 1, firstname: "A", lastname: "a")
+        let contactB = ContactDetail.mockWith(id: 1, firstname: "B", lastname: "b")
+        let contactAb = ContactDetail.mockWith(id: 1, firstname: "Ab", lastname: "ab")
+        
+        let sortedResult = contactManager.sortContacts(contacts: [contactB, contactA, contactAb])
+        let aContacts = sortedResult["A"]
+        XCTAssertNotNil(aContacts)
+        
+        let bContacts = sortedResult["B"]
+        XCTAssertNotNil(bContacts)
+        
+        XCTAssertEqual(aContacts![0].id, contactA.id)
+        XCTAssertEqual(aContacts![1].id, contactAb.id)
+        XCTAssertEqual(bContacts![0].id, contactB.id)
+    }
+    
+    
 }
