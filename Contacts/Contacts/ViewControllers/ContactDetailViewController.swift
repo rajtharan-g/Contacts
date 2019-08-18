@@ -57,6 +57,7 @@ class ContactDetailViewController: UIViewController {
         contactNameLabel.text = contactDetail?.fullName()
         mobileValueLabel.text = contactDetail?.phone
         emailValueLabel.text = contactDetail?.email
+        favoriteActionView.updateView(actionType: .favourite, contactDetail: contactDetail)
     }
     
     func applyGradient() {
@@ -94,10 +95,10 @@ class ContactDetailViewController: UIViewController {
         emailTextLabel.text = "email"
         
         // UI
-        messageActionView.updateView(actionType: .message)
-        callActionView.updateView(actionType: .call)
-        emailActionView.updateView(actionType: .email)
-        favoriteActionView.updateView(actionType: .favourite)
+        messageActionView.updateView(actionType: .message, contactDetail: contactDetail)
+        callActionView.updateView(actionType: .call, contactDetail: contactDetail)
+        emailActionView.updateView(actionType: .email, contactDetail: contactDetail)
+        favoriteActionView.updateView(actionType: .favourite, contactDetail: contactDetail)
         applyGradient()
     }
     
@@ -152,7 +153,12 @@ extension ContactDetailViewController: ContactActionViewDelegate {
     }
     
     func favouriteActionPressed() {
-        
+        ContactsManager.shared.updateFavouriteStatus(contactDetail: contactDetail) { (contactDetail, error) in
+            DispatchQueue.main.async {
+                self.contactDetail = contactDetail
+                self.applyContactDetails(contactDetail: contactDetail)
+            }
+        }
     }
 
 }

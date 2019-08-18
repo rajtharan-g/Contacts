@@ -11,11 +11,11 @@ import UIKit
 class Contact: Decodable {
     
     let id: Int?
-    let firstName: String?
-    let lastName: String?
-    let contactImage: String?
-    let isFavourite: Bool?
-    let url: String?
+    var firstName: String?
+    var lastName: String?
+    var contactImage: String?
+    var isFavourite: Bool?
+    var url: String?
     
     private enum CodingKeys: String, CodingKey {
         case id

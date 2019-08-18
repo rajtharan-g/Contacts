@@ -56,6 +56,22 @@ class ContactsManager: NSObject {
         }
     }
     
+    func updateFavouriteStatus(contactDetail: ContactDetail?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
+        if let contactId = contactDetail?.id, let url = URL(string: "\(kContactDetailURL)/\(contactId).json") {
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let jsonData = try! JSONSerialization.data(withJSONObject: ["favorite" : !(contactDetail?.isFavourite ?? false)], options: [])
+            request.httpBody = jsonData
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if error == nil {
+                    contactDetail?.isFavourite = !(contactDetail?.isFavourite ?? false)
+                }
+                completionHandler(contactDetail, error)
+            }.resume()
+        }
+    }
+    
     // MARK: - Custom methods
     
     func sortContacts(contacts: [Contact]) -> [String: [Contact]] {

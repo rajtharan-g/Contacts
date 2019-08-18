@@ -72,13 +72,13 @@ class ContactActionView: UIView {
     
     // MARK: - Custom methods
     
-    func updateView(actionType: ContactActionType) {
+    func updateView(actionType: ContactActionType, contactDetail: ContactDetail?) {
         self.type = actionType
-        updateButtonImage(actionType: actionType)
-        updateActionText(actionType: actionType)
+        updateButtonImage(actionType: actionType, contactDetail: contactDetail)
+        updateActionText(actionType: actionType, contactDetail: contactDetail)
     }
 
-    func updateActionText(actionType: ContactActionType) {
+    func updateActionText(actionType: ContactActionType, contactDetail: ContactDetail?) {
         switch actionType {
         case .message:
             actionLabel.text = "message"
@@ -90,12 +90,12 @@ class ContactActionView: UIView {
             actionLabel.text = "email"
             break
         case .favourite:
-            actionLabel.text = "favourite"
+            actionLabel.text = contactDetail?.isFavourite ?? false ? "unfavourite" : "favourite"
             break
         }
     }
     
-    func updateButtonImage(actionType: ContactActionType) {
+    func updateButtonImage(actionType: ContactActionType, contactDetail: ContactDetail?) {
         switch actionType {
         case .message:
             actionButton.setImage(UIImage(named: "message_button"), for: .normal)
@@ -107,7 +107,7 @@ class ContactActionView: UIView {
             actionButton.setImage(UIImage(named: "email_button"), for: .normal)
             break
         case .favourite:
-            actionButton.setImage(UIImage(named: "favourite_button_selected"), for: .normal)
+            contactDetail?.isFavourite ?? false ? actionButton.setImage(UIImage(named: "favourite_button_selected"), for: .normal) : actionButton.setImage(UIImage(named: "favourite_button"), for: .normal)
             break
         }
     }
