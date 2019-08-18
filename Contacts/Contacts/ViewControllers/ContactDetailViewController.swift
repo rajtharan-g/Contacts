@@ -37,12 +37,7 @@ class ContactDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ContactsManager.shared.fetchContactDetail(contact: contact) { (contactDetail, error) in
-            DispatchQueue.main.async {
-                self.contactDetail = contactDetail
-                self.applyContactDetails(contactDetail: contactDetail)
-            }
-        }
+        fetchContatDetail()
     }
     
     override func viewDidLayoutSubviews() {
@@ -53,13 +48,26 @@ class ContactDetailViewController: UIViewController {
     // MARK: - IBAction methods
     
     @IBAction func editButtonPressed(_ sender: Any) {
-        let editContactVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "EditContactVC") as! EditContactViewController
+        let editContactVC = UIStoryboard(name: Constants.mainStoryboard, bundle:nil).instantiateViewController(withIdentifier: EditContactViewController.identifier) as! EditContactViewController
         editContactVC.contactDetail = contactDetail
         editContactVC.type = .update
         present(UINavigationController(rootViewController: editContactVC), animated: true, completion: nil)
     }
     
     // MARK: - Custom methods
+    
+    func fetchContatDetail() {
+        if contactDetail == nil {
+            showSpinner(onView: self.view)
+        }
+        ContactsManager.shared.fetchContactDetail(contact: contact) { (contactDetail, error) in
+            DispatchQueue.main.async {
+                self.removeSpinner()
+                self.contactDetail = contactDetail
+                self.applyContactDetails(contactDetail: contactDetail)
+            }
+        }
+    }
     
     func applyContactDetails(contactDetail: ContactDetail?) {
         contactImageView.load(urlString: contactDetail?.contactImage)
@@ -119,8 +127,8 @@ extension ContactDetailViewController: ContactActionViewDelegate {
             composeVC.recipients = [contactDetail?.phone ?? ""]
             present(composeVC, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: nil, message: "It's not possible to send messages", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            let alert = UIAlertController(title: nil, message: Constants.alertForMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Constants.okBtnTitle, style: .default, handler: nil))
             self.present(alert, animated: true)
         }
         
@@ -130,8 +138,8 @@ extension ContactDetailViewController: ContactActionViewDelegate {
         if let url = URL(string: "tel://\(contactDetail?.phone ?? "")"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
-            let alert = UIAlertController(title: nil, message: "It's not possible to call this number", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            let alert = UIAlertController(title: nil, message: Constants.alertForCall, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Constants.okBtnTitle, style: .default, handler: nil))
             self.present(alert, animated: true)
         }
     }
@@ -143,8 +151,8 @@ extension ContactDetailViewController: ContactActionViewDelegate {
             mailComposer.mailComposeDelegate = self
             present(mailComposer, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: nil, message: "It's not possible to send mail", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            let alert = UIAlertController(title: nil, message: Constants.alertForMail, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: Constants.okBtnTitle, style: .default, handler: nil))
             self.present(alert, animated: true)
         }
     }

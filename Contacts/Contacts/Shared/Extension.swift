@@ -87,3 +87,26 @@ extension UIView {
     }
     
 }
+
+var vSpinner : UIView?
+
+extension UIViewController {
+    
+    func showSpinner(onView : UIView) {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        let ai = UIActivityIndicatorView.init(style: .gray)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        vSpinner = spinnerView
+    }
+    
+    func removeSpinner() {
+        vSpinner?.removeFromSuperview()
+        vSpinner = nil
+    }
+    
+}

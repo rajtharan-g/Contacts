@@ -17,8 +17,15 @@ struct Constants {
     
     static let alertForCameraAccessMessage = "App does not have access to your camera. To enable access, tap settings and turn on Camera."
     
+    static let alertForPermission = "Please check permission in settings."
+    
+    static let alertForCall = "It's not possible to call this number"
+    static let alertForMail = "It's not possible to send mail"
+    static let alertForMessage = "It's not possible to send messages"
+    
     static let settingsBtnTitle = "Settings"
     static let cancelBtnTitle = "Cancel"
-    static let okBtnTitle = "OK"
+    static let okBtnTitle = "Ok"
     
+    static let mainStoryboard = "Main"
 }

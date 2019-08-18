@@ -42,8 +42,12 @@ class ContactsViewController: UIViewController {
     // MARK: - Custom methods
     
     func fetchContacts() {
+        if contactsDict == nil {
+            showSpinner(onView: self.view)
+        }
         ContactsManager.shared.fetchContacts { (contactsDict, error) in
             DispatchQueue.main.async {
+                self.removeSpinner()
                 self.contactsDict = contactsDict
                 self.contactsTableView.reloadData()
             }
@@ -121,6 +125,7 @@ extension ContactsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let contactDetailVC = UIStoryboard(name: "Main", bundle:nil).instantiateViewController(withIdentifier: "contactDetailVC") as! ContactDetailViewController
         if let keys = contactsDict?.keys.sorted() {
             let indexKey = Array(keys)[indexPath.section]

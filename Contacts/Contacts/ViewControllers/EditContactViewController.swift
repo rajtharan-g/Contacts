@@ -32,6 +32,8 @@ class EditContactViewController: UIViewController {
     @IBOutlet weak var emailTextField: CustomBlackTextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    static let identifier = "EditContactVC"
+    
     var contactDetail: ContactDetail?
     var type: EditContactType?
     var activeField: UITextField?
@@ -72,12 +74,14 @@ class EditContactViewController: UIViewController {
     // MARK: - Custom methods
     
     func createContact() {
+        showSpinner(onView: self.view)
         ContactsManager.shared.createContactDetail(json: contactProperties()) { (contactDetail, error, validationError)  in
             DispatchQueue.main.async {
+                self.removeSpinner()
                 self.contactDetail = contactDetail
                 if let validationError = validationError {
                     let alert = UIAlertController(title: nil, message: validationError.errors?.first, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    alert.addAction(UIAlertAction(title: Constants.okBtnTitle, style: .default, handler: nil))
                     self.present(alert, animated: true)
                 } else {
                     self.applyContactDetails(contactDetail: contactDetail)
@@ -88,8 +92,10 @@ class EditContactViewController: UIViewController {
     }
     
     func updateContact() {
+        showSpinner(onView: self.view)
         ContactsManager.shared.updateContactDetail(contactDetail: contactDetail, json: contactProperties()) { (contactDetail, error) in
             DispatchQueue.main.async {
+                self.removeSpinner()
                 self.contactDetail = contactDetail
                 self.applyContactDetails(contactDetail: contactDetail)
                 self.dismiss(animated: true, completion: nil)
@@ -160,7 +166,7 @@ class EditContactViewController: UIViewController {
     }
     
     func addAlertForSettings() {
-        let alert = UIAlertController(title: nil, message: "Please check permission in settings.", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: Constants.alertForPermission, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Constants.okBtnTitle, style: .default, handler: nil))
         self.present(alert, animated: true)
     }
@@ -201,8 +207,6 @@ class EditContactViewController: UIViewController {
         lastNameLabel.text = "Last Name"
         mobileLabel.text = "mobile"
         emailLabel.text = "email"
-        
-        // UI
     }
     
     func applyContactDetails(contactDetail: ContactDetail?) {
