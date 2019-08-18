@@ -207,6 +207,12 @@ class EditContactViewController: UIViewController {
         lastNameLabel.text = "Last Name"
         mobileLabel.text = "mobile"
         emailLabel.text = "email"
+        
+        // Setup XCUITest Accessibility identifer
+        firstNameLabel.accessibilityIdentifier = "firstNameLabel"
+        lastNameLabel.accessibilityIdentifier = "lastNameLabel"
+        mobileLabel.accessibilityIdentifier = "mobileLabel"
+        emailLabel.accessibilityIdentifier = "emailLabel"
     }
     
     func applyContactDetails(contactDetail: ContactDetail?) {

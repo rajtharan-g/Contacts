@@ -105,6 +105,11 @@ class ContactDetailViewController: UIViewController {
         callActionView.updateView(actionType: .call, contactDetail: contactDetail)
         emailActionView.updateView(actionType: .email, contactDetail: contactDetail)
         favoriteActionView.updateView(actionType: .favourite, contactDetail: contactDetail)
+                
+        // Setup XCUITest Accessibility identifer
+        contactNameLabel.accessibilityIdentifier = "contactNameLabel"
+        mobileValueLabel.accessibilityIdentifier = "mobileValueLabel"
+        emailValueLabel.accessibilityIdentifier = "emailValueLabel"
     }
     
     func setDelegate() {

@@ -62,6 +62,9 @@ class ContactsViewController: UIViewController {
         contactsTableView.sectionIndexColor = UIColor.gray
         contactsTableView.separatorColor = UIColor.veryLightGray()
         
+        // XCUITest Accessibility identifier
+        contactsTableView.accessibilityIdentifier = "contactsTableView"
+        
         // Title text
         title = "Contact"
         navigationController?.navigationBar.titleTextAttributes = ContactsManager.navigationTitleTextAttributes()

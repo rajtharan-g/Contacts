@@ -9,26 +9,106 @@
 import XCTest
 
 class ContactsUITests: XCTestCase {
-
+    
+    var app: XCUIApplication!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
+        
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app = XCUIApplication()
+        app.launch()
     }
-
+    
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testContactsTableViewInteraction() {
+        app.launch()
+        
+        let contactsTableView = app.tables["contactsTableView"]
+        XCTAssertTrue(contactsTableView.exists, "The contacts tableview exists")
+        
+        let tableCells = contactsTableView.cells
+        if tableCells.count > 0 {
+            let count = min(tableCells.count - 1, 5) // Test maximum of five cells
+            let promise = expectation(description: "Wait for table cells")
+            for i in stride(from: 0, to: count , by: 1) {
+                
+                // Grab the cell and verify that it exists and tap it
+                let tableCell = tableCells.element(boundBy: i)
+                XCTAssertTrue(tableCell.exists, "The \(i) cell is in place on the table")
+                
+                tableCell.tap()
+                
+                if i == (count - 1) {
+                    promise.fulfill()
+                }
+                
+                // Back
+                app.navigationBars.buttons.element(boundBy: 0).tap()
+            }
+            waitForExpectations(timeout: 10.0, handler: nil)
+            XCTAssertTrue(true, "Finished testing the table cells")
+        } else {
+            XCTAssert(false, "Table view cells not found")
+        }
     }
-
+    
+    func testContacDetail() {
+        app.launch()
+        let tableCells = app.tables["contactsTableView"].cells
+        if tableCells.count > 0 {
+            let promise = expectation(description: "Wait for table cells")
+            let tableCell = tableCells.firstMatch
+            tableCell.tap()
+            
+            // Check if all labels exists
+            XCTAssertTrue(app.staticTexts["contactNameLabel"].exists)
+            XCTAssertTrue(app.staticTexts["mobileValueLabel"].exists)
+            XCTAssertTrue(app.staticTexts["emailValueLabel"].exists)
+            
+            promise.fulfill()
+            waitForExpectations(timeout: 10.0, handler: nil)
+        } else {
+            XCTAssert(false, "Table view cells not found")
+        }
+    }
+    
+    func testEditContact() {
+        app.launch()
+        let tableCells = app.tables["contactsTableView"].cells
+        if tableCells.count > 0 {
+            let promise = expectation(description: "Wait for table cells")
+            let tableCell = tableCells.firstMatch
+            tableCell.tap()
+            
+            // Edit button pressed
+            app.navigationBars.buttons.element(boundBy: 1).tap()
+            
+            // Check if all labels exists in edit screen
+            XCTAssertTrue(app.staticTexts["firstNameLabel"].exists)
+            XCTAssertTrue(app.staticTexts["lastNameLabel"].exists)
+            XCTAssertTrue(app.staticTexts["mobileLabel"].exists)
+            XCTAssertTrue(app.staticTexts["emailLabel"].exists)
+            
+            promise.fulfill()
+            waitForExpectations(timeout: 10.0, handler: nil)
+        } else {
+            XCTAssert(false, "Table view cells not found")
+        }
+    }
+    
+    func goBackgroundAndForeground() {
+        XCUIDevice.shared.press(.home)
+        app.activate()
+    }
+    
+    func killAndOpenApp() {
+        app.terminate()
+        app.launch()
+    }
+    
 }

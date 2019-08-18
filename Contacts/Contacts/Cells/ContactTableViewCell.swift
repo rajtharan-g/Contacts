@@ -40,6 +40,11 @@ class ContactTableViewCell: UITableViewCell {
         
         // UI
         favoriteImageView.rounded()
+        
+        // Setup XCUITest Accessibility identifer
+        favoriteImageView.accessibilityIdentifier = "favoriteImageView"
+        contactName.accessibilityIdentifier = "contactName"
+        contactImageView.accessibilityIdentifier = "contactImageView"
     }
 
 }
