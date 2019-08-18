@@ -11,7 +11,7 @@ import MessageUI
 
 class ContactDetailViewController: UIViewController {
 
-    @IBOutlet weak var contactDetailView: UIView!
+    @IBOutlet weak var contactDetailView: GradientView!
     @IBOutlet weak var contactImageView: CircularBorderedImageView!
     @IBOutlet weak var contactNameLabel: UILabel!
     @IBOutlet weak var messageActionView: ContactActionView!
@@ -69,18 +69,7 @@ class ContactDetailViewController: UIViewController {
         favoriteActionView.updateView(actionType: .favourite, contactDetail: contactDetail)
     }
     
-    func applyGradient() {
-        gradientLayer = CAGradientLayer()
-        gradientLayer?.frame = contactDetailView.bounds
-        gradientLayer?.colors = [UIColor.white.cgColor, UIColor.menuGreenColor(alpha: 0.28).cgColor]
-        gradientLayer?.opacity = 0.55
-        if let topLayer = contactDetailView.layer.sublayers?.first, topLayer is CAGradientLayer {
-            topLayer.removeFromSuperlayer()
-        }
-        if let gradientLayer = gradientLayer {
-            contactDetailView.layer.addSublayer(gradientLayer)
-        }
-    }
+    
     
     func applyUICustomization() {
         
@@ -108,7 +97,6 @@ class ContactDetailViewController: UIViewController {
         callActionView.updateView(actionType: .call, contactDetail: contactDetail)
         emailActionView.updateView(actionType: .email, contactDetail: contactDetail)
         favoriteActionView.updateView(actionType: .favourite, contactDetail: contactDetail)
-        applyGradient()
     }
     
     func setDelegate() {

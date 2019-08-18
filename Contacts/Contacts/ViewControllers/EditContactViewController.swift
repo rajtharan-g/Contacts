@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import Photos
+
+enum AttachmentType: String {
+    case camera = "Camera", photoLibrary = "Gallery"
+}
 
 class EditContactViewController: UIViewController {
 
-    @IBOutlet weak var contactView: UIView!
-    @IBOutlet weak var contactImageView: UIImageView!
+    @IBOutlet weak var contactView: GradientView!
+    @IBOutlet weak var contactImageView: CircularBorderedImageView!
     @IBOutlet weak var uploadImageButton: UIButton!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -57,7 +62,98 @@ class EditContactViewController: UIViewController {
         }
     }
     
+    @IBAction func cameraButtonPressed(_ sender: UIButton) {
+        displayImageOptionsActionSheet(sender: sender)
+    }
+    
+    func displayImageOptionsActionSheet(sender: UIButton) {
+        let alertController = UIAlertController(title: Constants.actionFileTypeTitle, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: AttachmentType.camera.rawValue, style: .default, handler: { (action) -> Void in
+            self.authorisationStatus(attachmentTypeEnum: .camera, vc: self)
+        }))
+        alertController.addAction(UIAlertAction(title: AttachmentType.photoLibrary.rawValue, style: .default, handler: { (action) -> Void in
+            self.authorisationStatus(attachmentTypeEnum: .photoLibrary, vc: self)
+        }))
+        alertController.addAction(UIAlertAction(title: Constants.cancelBtnTitle, style: .cancel, handler: nil))
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if let popoverController = alertController.popoverPresentationController {
+                popoverController.sourceView = sender
+                popoverController.sourceRect = sender.bounds
+            }
+        }
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func authorisationStatus(attachmentTypeEnum: AttachmentType, vc: UIViewController) {
+        if attachmentTypeEnum ==  AttachmentType.camera {
+            let status = AVCaptureDevice.authorizationStatus(for: .video)
+            switch status{
+            case .authorized: // The user has previously granted access to the camera.
+                self.openCamera()
+                
+            case .notDetermined: // The user has not yet been asked for camera access.
+                AVCaptureDevice.requestAccess(for: .video) { granted in
+                    if granted {
+                        self.openCamera()
+                    }
+                }
+                //denied - The user has previously denied access.
+            //restricted - The user can't grant access due to restrictions.
+            case .denied, .restricted:
+                self.addAlertForSettings()
+                return
+                
+            default:
+                break
+            }
+        } else if attachmentTypeEnum == AttachmentType.photoLibrary {
+            let status = PHPhotoLibrary.authorizationStatus()
+            switch status{
+            case .authorized:
+                if attachmentTypeEnum == AttachmentType.photoLibrary {
+                    self.openPhotoLibrary()
+                }
+            case .denied, .restricted:
+                self.addAlertForSettings()
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization({ (status) in
+                    if status == PHAuthorizationStatus.authorized{
+                        // photo library access given
+                        self.openPhotoLibrary()
+                    }
+                })
+            default:
+                break
+            }
+        }
+    }
+    
+    func addAlertForSettings() {
+        let alert = UIAlertController(title: nil, message: "Please check permission in settings.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Constants.okBtnTitle, style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     // MARK: - Custom methods
+    
+    func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let myPickerController = UIImagePickerController()
+            myPickerController.delegate = self
+            myPickerController.sourceType = .camera
+            present(myPickerController, animated: true, completion: nil)
+        }
+    }
+    
+    func openPhotoLibrary() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let myPickerController = UIImagePickerController()
+            myPickerController.delegate = self
+            myPickerController.sourceType = .photoLibrary
+            myPickerController.allowsEditing = true
+            present(myPickerController, animated: true, completion: nil)
+        }
+    }
     
     func contactProperties() -> [String: String?] {
         return ["first_name": firstNameTextField.text, "last_name": lastNameTextField.text, "phone_number": mobileTextField.text, "email": emailTextField.text]
@@ -74,6 +170,8 @@ class EditContactViewController: UIViewController {
         lastNameLabel.text = "Last Name"
         mobileLabel.text = "mobile"
         emailLabel.text = "email"
+        
+        // UI
     }
     
     func applyContactDetails(contactDetail: ContactDetail?) {
@@ -104,6 +202,8 @@ class EditContactViewController: UIViewController {
 
 }
 
+// MARK: - EditContactViewController delegate methods
+
 extension EditContactViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -118,5 +218,28 @@ extension EditContactViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeField = nil
     }
+    
+}
+
+// MARK: - UIImagePickerControllerDelegate methods
+
+extension EditContactViewController: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            contactImageView.image = image
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            contactImageView.image = image
+        } else {
+            print("Something went wrong in  image")
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension EditContactViewController: UINavigationControllerDelegate {
+    
+    // MARK: - UIImagePickerControllerDelegate methods
     
 }
