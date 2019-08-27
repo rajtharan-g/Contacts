@@ -17,6 +17,7 @@ class ContactsManager: NSObject {
     static let shared = ContactsManager()
     
     let nonLetterIndex = "#"
+    var titleIndexArray: [String] = Array()
     
     // MARK: - API methods
     
@@ -129,17 +130,19 @@ class ContactsManager: NSObject {
     // MARK: - Custom methods
     
     func sortContacts(contacts: [Contact]) -> [String: [Contact]] {
-        var contactsDict: [String: [Contact]] = [:]
+        var contactsDict: [String: [Contact]] = Dictionary()
         for contact in contacts {
             let indexKey = contact.fullName().first?.uppercased() ?? ""
-            if !Array(contactsDict.keys).contains(indexKey) && Character(indexKey).isLetter {
-                contactsDict[indexKey] = Array()
-            } else if !Character(indexKey).isLetter {
-                contactsDict[nonLetterIndex] = Array()
+            if !titleIndexArray.contains(indexKey) {
+                if Character(indexKey).isLetter {
+                    titleIndexArray.append(indexKey)
+                } else {
+                    titleIndexArray.append(nonLetterIndex)
+                }
             }
         }
-        let sortedKeys = Array(contactsDict.keys).sorted(by: <)
-        for key in sortedKeys {
+        titleIndexArray.sort()
+        for key in titleIndexArray {
             if Character(key).isLetter {
                 contactsDict[key] = contacts.filter({$0.fullName().first?.uppercased() ?? "" == key}).sorted(by: {$0.fullName() < $1.fullName()})
             } else {

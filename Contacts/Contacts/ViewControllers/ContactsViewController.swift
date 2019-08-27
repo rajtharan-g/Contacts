@@ -16,7 +16,6 @@ class ContactsViewController: UIViewController {
     
     static let sectionHeaderHeight: CGFloat = 45.0
     
-    var contacts: [Contact]?
     var contactsDict: [String: [Contact]]?
     
     // MARK: - View life cycle methods
@@ -81,20 +80,15 @@ extension ContactsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let keys = contactsDict?.keys.sorted() {
-            let indexKey = Array(keys)[section]
-            return contactsDict?[indexKey]?.count ?? 0
-        }
-        return 0
+        let indexKey = ContactsManager.shared.titleIndexArray[section]
+        return contactsDict?[indexKey]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let contactCell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.identifier) as? ContactTableViewCell {
-            if let keys = contactsDict?.keys.sorted() {
-                let indexKey = Array(keys)[indexPath.section]
-                if let contact = contactsDict?[indexKey]?[indexPath.row] {
-                    contactCell.updateCell(contact: contact)
-                }
+            let indexKey = ContactsManager.shared.titleIndexArray[indexPath.section]
+            if let contact = contactsDict?[indexKey]?[indexPath.row] {
+                contactCell.updateCell(contact: contact)
             }
             return contactCell
         }
@@ -102,11 +96,11 @@ extension ContactsViewController: UITableViewDataSource {
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return contactsDict?.keys.sorted()
+        return ContactsManager.shared.titleIndexArray
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return contactsDict?.keys.sorted()[section]
+        return ContactsManager.shared.titleIndexArray[section]
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
