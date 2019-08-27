@@ -55,6 +55,9 @@ class ContactsViewController: UIViewController {
     
     func applyUICustomization() {
         
+        // Properties
+        contactsTableView.estimatedRowHeight = ContactTableViewCell.cellHeight
+        
         // Color
         groupsBarButtonItem.applyTintColor(color: UIColor.menuGreenColor())
         addBarButtonItem.applyTintColor(color: UIColor.menuGreenColor())
@@ -118,7 +121,7 @@ extension ContactsViewController: UITableViewDataSource {
 extension ContactsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return ContactTableViewCell.cellHeight
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
