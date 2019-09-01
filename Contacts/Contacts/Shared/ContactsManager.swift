@@ -27,8 +27,7 @@ class ContactsManager: NSObject {
     }
     
     func getContacts(completionHandler: @escaping ([Contact]?, Error?) -> Void) {
-        guard let url = URL(string: kContactsJsonURL)
-            else { fatalError() }
+        guard let url = URL(string: kContactsJsonURL) else { fatalError("URL can't be empty") }
         session.dataTask(with: url) { (data, response, error) in
             guard error == nil else {
                 completionHandler(nil, error)
@@ -44,25 +43,28 @@ class ContactsManager: NSObject {
             } catch let error {
                 completionHandler(nil, error)
             }
-            }.resume()
+        }.resume()
     }
     
-    func fetchContactDetail(contact:Contact, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
-        if let contactId = contact.id, let url = URL(string: "\(kContactURL)/\(contactId).json") {
-            URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { (data, response, error) -> Void in
-                guard let data = data else {
-                    print("Error: No data to decode")
-                    completionHandler(nil, error)
-                    return
-                }
-                guard let contact = try? JSONDecoder().decode(ContactDetail.self, from: data) else {
-                    print("Error: Couldn't decode data into Contact")
-                    completionHandler(nil, error)
-                    return
-                }
-                completionHandler(contact, error)
-            }).resume()
-        }
+    func getContactDetail(contact:Contact, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
+        guard let contactId = contact.id else { fatalError("Contact ID can't be empty") }
+        guard let url = URL(string: "\(kContactURL)/\(contactId).json") else { fatalError("URL can't be empty") }
+        session.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard let data = data else {
+                completionHandler(nil, NSError(domain: "no data", code: 10, userInfo: nil))
+                return
+            }
+            do {
+                let contacts = try JSONDecoder().decode(ContactDetail.self, from: data)
+                completionHandler(contacts, nil)
+            } catch let error {
+                completionHandler(nil, error)
+            }
+        }).resume()
     }
     
     func updateFavouriteStatus(contactDetail: Contact?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {

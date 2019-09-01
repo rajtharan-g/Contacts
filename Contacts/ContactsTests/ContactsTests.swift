@@ -34,7 +34,7 @@ class ContactsTests: XCTestCase {
     func testGetContactsWithExpectedURLHostAndPath() {
         let mockURLSession = MockURLSession()
         contactManager.session = mockURLSession
-        contactManager.getContacts { movies, error in }
+        contactManager.getContacts { contacts, error in }
         XCTAssertEqual(mockURLSession.cachedURL?.host, "gojek-contacts-app.herokuapp.com")
         XCTAssertEqual(mockURLSession.cachedURL?.path, "/contacts.json")
     }
@@ -98,15 +98,76 @@ class ContactsTests: XCTestCase {
         }
     }
     
-    func testFetchContactDetails() {
-        promise = expectation(description: "Fetch contacts details expectation")
-        let contact = ContactDetail.mockWith(id: 9344)
-        contactManager.fetchContactDetail(contact: contact) { (contactDetail, error) in
-            XCTAssertNotNil(contactDetail, "ContactDict is nil")
-            XCTAssertNil(error, error?.localizedDescription ?? "Error is not nil")
-            self.promise.fulfill()
+    func testGetContactDetailsWithExpectedURLHostAndPath() {
+        let mockURLSession = MockURLSession()
+        contactManager.session = mockURLSession
+        let mockContact = ContactDetail.mockWith(id: 1234)
+        contactManager.getContactDetail(contact: mockContact) { (_, _) in }
+        XCTAssertEqual(mockURLSession.cachedURL?.host, "gojek-contacts-app.herokuapp.com")
+        XCTAssertEqual(mockURLSession.cachedURL?.path, "/contacts/1234.json")
+    }
+    
+    func testGetContactDetailsSuccessReturnsContacts() {
+        let jsonData = #"{"id":10141,"first_name":"akam ","last_name":"kkkk","email":"fsdfsdfsfd@dff.com","phone_number":"3424242423434233","profile_pic":"/images/missing.png","favorite":true,"created_at":"2019-08-31T06:14:08.030Z","updated_at":"2019-08-31T06:14:08.030Z"}"#.data(using: .utf8)
+        let mockURLSession = MockURLSession(data: jsonData, urlResponse: nil, error: nil)
+        contactManager.session = mockURLSession
+        let contactsExpectation = expectation(description: "contacts")
+        var contactResponse: Contact?
+        let mockContact = ContactDetail.mockWith(id: 10141)
+        contactManager.getContactDetail(contact: mockContact) { (contactDetail, error) in
+            contactResponse = contactDetail
+            contactsExpectation.fulfill()
         }
-        waitForExpectations(timeout: ContactsTests.responseTimeOut, handler: nil)
+        waitForExpectations(timeout: 1) { (error) in
+            XCTAssertNotNil(contactResponse)
+        }
+    }
+    
+    func testGetContactDetailsWhenResponseErrorReturnsError() {
+        let error = NSError(domain: "error", code: 1234, userInfo: nil)
+        let mockURLSession  = MockURLSession(data: nil, urlResponse: nil, error: error)
+        contactManager.session = mockURLSession
+        let errorExpectation = expectation(description: "error")
+        var errorResponse: Error?
+        let mockContact = ContactDetail.mockWith(id: 10141)
+        contactManager.getContactDetail(contact: mockContact) { (contactDetail, error) in
+            errorResponse = error
+            errorExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 1) { (error) in
+            XCTAssertNotNil(errorResponse)
+        }
+    }
+    
+    func testGetContactDetailsWhenEmptyDataReturnsError() {
+        let mockURLSession  = MockURLSession(data: nil, urlResponse: nil, error: nil)
+        contactManager.session = mockURLSession
+        let errorExpectation = expectation(description: "error")
+        var errorResponse: Error?
+        let mockContact = ContactDetail.mockWith(id: 10141)
+        contactManager.getContactDetail(contact: mockContact) { (contactDetail, error) in
+            errorResponse = error
+            errorExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 1) { (error) in
+            XCTAssertNotNil(errorResponse)
+        }
+    }
+    
+    func testGetContactDetailsInvalidJSONReturnsError() {
+        let jsonData = "[{\"t\"}]".data(using: .utf8)
+        let mockURLSession  = MockURLSession(data: jsonData, urlResponse: nil, error: nil)
+        contactManager.session = mockURLSession
+        let errorExpectation = expectation(description: "error")
+        var errorResponse: Error?
+        let mockContact = ContactDetail.mockWith(id: 10141)
+        contactManager.getContactDetail(contact: mockContact) { (contactDetail, error) in
+            errorResponse = error
+            errorExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 1) { (error) in
+            XCTAssertNotNil(errorResponse)
+        }
     }
     
     func testUpdateFavouriteStatus() {

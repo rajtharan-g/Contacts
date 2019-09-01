@@ -54,7 +54,7 @@ class ContactDetailViewController: UIViewController {
         if contactDetail == nil {
             showSpinner(onView: self.view)
         }
-        ContactsManager.shared.fetchContactDetail(contact: contact) { (contactDetail, error) in
+        ContactsManager.shared.getContactDetail(contact: contact) { (contactDetail, error) in
             DispatchQueue.main.async {
                 self.removeSpinner()
                 self.contactDetail = contactDetail
