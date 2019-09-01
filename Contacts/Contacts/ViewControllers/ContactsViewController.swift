@@ -44,10 +44,12 @@ class ContactsViewController: UIViewController {
         if contactsDict == nil {
             showSpinner(onView: self.view)
         }
-        ContactsManager.shared.fetchContacts { (contactsDict, error) in
+        ContactsManager.shared.getContacts { (contacts, error) in
             DispatchQueue.main.async {
                 self.removeSpinner()
-                self.contactsDict = contactsDict
+                if let contacts = contacts {
+                    self.contactsDict = ContactsManager.shared.sortContacts(contacts: contacts)
+                }
                 self.contactsTableView.reloadData()
             }
         }

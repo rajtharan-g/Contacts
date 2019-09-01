@@ -25,6 +25,10 @@
 		855CF80623097D6E00D551F2 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF80523097D6E00D551F2 /* CustomLabel.swift */; };
 		855CF80A23097E0200D551F2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF80923097E0200D551F2 /* CustomTextField.swift */; };
 		855CF80C2309A43000D551F2 /* MockObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855CF80B2309A43000D551F2 /* MockObjects.swift */; };
+		859B2A1A231BEFDA0069F167 /* APIRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859B2A19231BEFDA0069F167 /* APIRepositoryTests.swift */; };
+		859B2A24231BFBAC0069F167 /* APIRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859B2A1B231BF0260069F167 /* APIRepository.swift */; };
+		859B2A25231BFBAC0069F167 /* MockTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859B2A1F231BF72B0069F167 /* MockTask.swift */; };
+		859B2A26231BFBAC0069F167 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859B2A1D231BF0CB0069F167 /* MockURLSession.swift */; };
 		85BF7A6223086361002A8945 /* ContactAction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85BF7A6123086361002A8945 /* ContactAction.xib */; };
 		85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A632308653B002A8945 /* ContactActionView.swift */; };
 		85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF7A652308696D002A8945 /* ContactDetailViewController.swift */; };
@@ -74,6 +78,10 @@
 		855CF80523097D6E00D551F2 /* CustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		855CF80923097E0200D551F2 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		855CF80B2309A43000D551F2 /* MockObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjects.swift; sourceTree = "<group>"; };
+		859B2A19231BEFDA0069F167 /* APIRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRepositoryTests.swift; sourceTree = "<group>"; };
+		859B2A1B231BF0260069F167 /* APIRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRepository.swift; sourceTree = "<group>"; };
+		859B2A1D231BF0CB0069F167 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		859B2A1F231BF72B0069F167 /* MockTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTask.swift; sourceTree = "<group>"; };
 		85BF7A6123086361002A8945 /* ContactAction.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactAction.xib; sourceTree = "<group>"; };
 		85BF7A632308653B002A8945 /* ContactActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactActionView.swift; sourceTree = "<group>"; };
 		85BF7A652308696D002A8945 /* ContactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +153,7 @@
 		85029C852307C89F00124F82 /* ContactsTests */ = {
 			isa = PBXGroup;
 			children = (
+				859B2A19231BEFDA0069F167 /* APIRepositoryTests.swift */,
 				85029C862307C89F00124F82 /* ContactsTests.swift */,
 				85029C882307C89F00124F82 /* Info.plist */,
 				855CF80B2309A43000D551F2 /* MockObjects.swift */,
@@ -218,6 +227,9 @@
 				85029CB52307D2FC00124F82 /* ContactsManager.swift */,
 				85029CBC2307DF8B00124F82 /* Extension.swift */,
 				855CF7FD2309611500D551F2 /* Constants.swift */,
+				859B2A1B231BF0260069F167 /* APIRepository.swift */,
+				859B2A1D231BF0CB0069F167 /* MockURLSession.swift */,
+				859B2A1F231BF72B0069F167 /* MockTask.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -389,16 +401,19 @@
 				85029CBB2307DE1900124F82 /* ContactTableViewCell.swift in Sources */,
 				85029CAA2307CB0700124F82 /* AppDelegate.swift in Sources */,
 				85029CBD2307DF8B00124F82 /* Extension.swift in Sources */,
+				859B2A25231BFBAC0069F167 /* MockTask.swift in Sources */,
 				85BF7A6823087AF2002A8945 /* ContactDetail.swift in Sources */,
 				85029CB62307D2FC00124F82 /* ContactsManager.swift in Sources */,
 				85029CAD2307CB0700124F82 /* ContactsViewController.swift in Sources */,
 				855CF80623097D6E00D551F2 /* CustomLabel.swift in Sources */,
 				85BF7A662308696D002A8945 /* ContactDetailViewController.swift in Sources */,
 				85BF7A642308653B002A8945 /* ContactActionView.swift in Sources */,
+				859B2A24231BFBAC0069F167 /* APIRepository.swift in Sources */,
 				85BF7A6A23089E62002A8945 /* CustomImageView.swift in Sources */,
 				855CF8002309671A00D551F2 /* GradientView.swift in Sources */,
 				855CF80A23097E0200D551F2 /* CustomTextField.swift in Sources */,
 				855CF7FC230948BD00D551F2 /* EditContactViewController.swift in Sources */,
+				859B2A26231BFBAC0069F167 /* MockURLSession.swift in Sources */,
 				855CF8022309772700D551F2 /* Error.swift in Sources */,
 				855CF7FE2309611500D551F2 /* Constants.swift in Sources */,
 			);
@@ -409,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				855CF80C2309A43000D551F2 /* MockObjects.swift in Sources */,
+				859B2A1A231BEFDA0069F167 /* APIRepositoryTests.swift in Sources */,
 				85029C872307C89F00124F82 /* ContactsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

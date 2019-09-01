@@ -16,27 +16,35 @@ class ContactsManager: NSObject {
     
     static let shared = ContactsManager()
     
+    var session: URLSession!
     let nonLetterIndex = "#"
     var titleIndexArray: [String] = Array()
     
     // MARK: - API methods
     
-    func fetchContacts(completionHandler: @escaping ([String: [Contact]]?, Error?) -> Void) {
-        if let url = URL(string: kContactsJsonURL) {
-            URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { (data, response, error) -> Void in
-                guard let data = data else {
-                    print("Error: No data to decode")
-                    completionHandler(nil, error)
-                    return
-                }
-                guard let contacts = try? JSONDecoder().decode([Contact].self, from: data) else {
-                    print("Error: Couldn't decode data into Contact")
-                    completionHandler(nil, error)
-                    return
-                }
-                completionHandler(self.sortContacts(contacts: contacts), error)
-            }).resume()
-        }
+    init(session: URLSession? = URLSession.shared) {
+        self.session = session
+    }
+    
+    func getContacts(completionHandler: @escaping ([Contact]?, Error?) -> Void) {
+        guard let url = URL(string: kContactsJsonURL)
+            else { fatalError() }
+        session.dataTask(with: url) { (data, response, error) in
+            guard error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            guard let data = data else {
+                completionHandler(nil, NSError(domain: "no data", code: 10, userInfo: nil))
+                return
+            }
+            do {
+                let contacts = try JSONDecoder().decode([Contact].self, from: data)
+                completionHandler(contacts, nil)
+            } catch let error {
+                completionHandler(nil, error)
+            }
+            }.resume()
     }
     
     func fetchContactDetail(contact:Contact, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
