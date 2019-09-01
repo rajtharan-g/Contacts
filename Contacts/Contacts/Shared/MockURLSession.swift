@@ -11,10 +11,10 @@ import Foundation
 class MockURLSession:URLSession {
     
     var cachedURL: URL?
-    private let mockTask: MockTask
+    private let mockTask: MockDataTask
     
     init(data:Data? = nil, urlResponse: URLResponse? = nil, error: Error? = nil) {
-        mockTask = MockTask(data: data, urlResponse: urlResponse, error: error)
+        mockTask = MockDataTask(data: data, urlResponse: urlResponse, error: error)
     }
     
     override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {

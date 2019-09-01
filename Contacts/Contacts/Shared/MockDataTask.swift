@@ -1,5 +1,5 @@
 //
-//  MockTask.swift
+//  MockDataTask.swift
 //  Contacts
 //
 //  Created by Rajtharan G on 01/09/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MockTask: URLSessionDataTask {
+class MockDataTask: URLSessionDataTask {
     
     private let data: Data?
     private let urlResponse: URLResponse?

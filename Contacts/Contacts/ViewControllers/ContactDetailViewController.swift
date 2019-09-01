@@ -153,7 +153,9 @@ extension ContactDetailViewController: ContactActionViewDelegate {
     }
     
     func favouriteActionPressed() {
-        ContactsManager.shared.updateFavouriteStatus(contactDetail: contactDetail) { (contactDetail, error) in
+        let manager = ContactUpdateManager()
+        guard let contact = contactDetail else { return }
+        manager.toggleFavouriteStatus(contact: contact) { (contactDetail, error) in
             DispatchQueue.main.async {
                 self.contactDetail = contactDetail
                 self.applyContactDetails(contactDetail: contactDetail)

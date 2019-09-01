@@ -67,42 +67,6 @@ class ContactsManager: NSObject {
         }).resume()
     }
     
-    func updateFavouriteStatus(contactDetail: Contact?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
-        if let contactId = contactDetail?.id, let url = URL(string: "\(kContactURL)/\(contactId).json") {
-            updateContact(url: url, type:.update, json: ["favorite" : !(contactDetail?.isFavourite ?? false)]) { (data, response, error) in
-                guard let data = data else {
-                    print("Error: No data to decode")
-                    completionHandler(nil, error)
-                    return
-                }
-                guard let contactDetail = try? JSONDecoder().decode(ContactDetail.self, from: data) else {
-                    print("Error: Couldn't decode data into Contact")
-                    completionHandler(nil, error)
-                    return
-                }
-                completionHandler(contactDetail, error)
-            }
-        }
-    }
-    
-    func updateContactDetail(contactDetail: ContactDetail?, json: [String: String?]?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
-        if let contactId = contactDetail?.id, let url = URL(string: "\(kContactURL)/\(contactId).json"), let json = json {
-            updateContact(url: url, type: .update, json: json as [String : Any]) { (data, response, error) in
-                guard let data = data else {
-                    print("Error: No data to decode")
-                    completionHandler(nil, error)
-                    return
-                }
-                guard let contact = try? JSONDecoder().decode(ContactDetail.self, from: data) else {
-                    print("Error: Couldn't decode data into Contact")
-                    completionHandler(nil, error)
-                    return
-                }
-                completionHandler(contact, error)
-            }
-        }
-    }
-    
     func createContactDetail(json: [String: String?]?, completionHandler: @escaping (ContactDetail?, Error?, ValidationError?) -> Void) {
         if let url = URL(string: "\(kContactURL).json"), let json = json {
             updateContact(url: url, type: .create, json: json as [String : Any]) { (data, response, error) in
