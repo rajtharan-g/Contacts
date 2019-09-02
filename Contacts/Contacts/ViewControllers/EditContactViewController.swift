@@ -37,6 +37,7 @@ class EditContactViewController: UIViewController {
     var contactDetail: ContactDetail?
     var type: EditContactType?
     var activeField: UITextField?
+    var imageUpdated: Bool = false
     
     // MARK: - View life cycle methods
     
@@ -287,9 +288,8 @@ extension EditContactViewController: UIImagePickerControllerDelegate {
             contactImageView.image = image
         } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             contactImageView.image = image
-        } else {
-            print("Something went wrong in  image")
         }
+        imageUpdated = true
         picker.dismiss(animated: true, completion: nil)
     }
     
