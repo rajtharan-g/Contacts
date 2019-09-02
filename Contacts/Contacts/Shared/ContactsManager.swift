@@ -23,7 +23,12 @@ class ContactsManager: NSObject {
     // MARK: - API methods
     
     init(session: URLSession? = URLSession.shared) {
-        self.session = session
+        if CommandLine.arguments.contains("--uitesting") {
+            let jsonData = "[{\"id\":10139,\"first_name\":\"aakam\",\"last_name\":\"kumfasfsd\",\"profile_pic\":\"/images/missing.png\",\"favorite\":true,\"url\":\"http://gojek-contacts-app.herokuapp.com/contacts/10139.json\"},{\"id\":10141,\"first_name\":\"akam \",\"last_name\":\"kkkk\",\"profile_pic\":\"/images/missing.png\",\"favorite\":true,\"url\":\"http://gojek-contacts-app.herokuapp.com/contacts/10141.json\"}]".data(using: .utf8)
+            self.session = MockURLSession(data: jsonData, urlResponse: nil, error: nil)
+        } else {
+            self.session = session
+        }
     }
     
     func getContacts(completionHandler: @escaping ([Contact]?, Error?) -> Void) {

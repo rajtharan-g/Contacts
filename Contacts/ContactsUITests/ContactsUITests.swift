@@ -18,7 +18,7 @@ class ContactsUITests: XCTestCase {
         
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         app = XCUIApplication()
-        app.launch()
+        app.launchArguments = ["--uitesting"]
     }
     
     override func tearDown() {
@@ -27,13 +27,17 @@ class ContactsUITests: XCTestCase {
     
     func testContactsTableViewInteraction() {
         app.launch()
+        let predicate = NSPredicate(format: "exists == true")
+        let query = app.tables["contactsTableView"]
+        expectation(for: predicate, evaluatedWith: query, handler: nil)
+        waitForExpectations(timeout: 1.0, handler: nil)
+        sleep(1) // UI exists even before it actually appears in screen, so we are adding 1 second delay to it
         
         let contactsTableView = app.tables["contactsTableView"]
         XCTAssertTrue(contactsTableView.exists, "The contacts tableview exists")
-        
         let tableCells = contactsTableView.cells
         if tableCells.count > 0 {
-            let count = min(tableCells.count - 1, 5) // Test maximum of five cells
+            let count = min(tableCells.count - 1, 2) // Test maximum of two cells
             let promise = expectation(description: "Wait for table cells")
             for i in stride(from: 0, to: count , by: 1) {
                 
@@ -50,14 +54,14 @@ class ContactsUITests: XCTestCase {
                 // Back
                 app.navigationBars.buttons.element(boundBy: 0).tap()
             }
-            waitForExpectations(timeout: 20.0, handler: nil)
+            waitForExpectations(timeout: 3.0, handler: nil)
             XCTAssertTrue(true, "Finished testing the table cells")
         } else {
             XCTAssert(false, "Table view cells not found")
         }
     }
     
-    func testContacDetail() {
+    func testContactDetail() {
         app.launch()
         let tableCells = app.tables["contactsTableView"].cells
         if tableCells.count > 0 {

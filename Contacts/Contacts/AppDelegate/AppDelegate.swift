@@ -15,7 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        if CommandLine.arguments.contains("--uitesting") {
+            // Reset state if any
+            _ = Contact.init(id: 1, firstName: "sdg", lastName: "sdf", contactImage: "sdfsdf", isFavourite: true, url: "ewfmlgkl")
+            
+        }
+        
         return true
     }
 
