@@ -170,23 +170,6 @@ class ContactsTests: XCTestCase {
         }
     }
     
-    // Need to update test case based on new mock networking protocol
-    /*func testUpdateContactDetail() {
-        promise = expectation(description: "Favourite update expectation")
-        let mockContact = ContactDetail.mockWith(id: 9344)
-        let updatedJSon: [String: String] = ["first_name": "Test1", "last_name": "Test2", "phone_number": "9500243064", "email":"testing@test.com"]
-        contactManager.updateContactDetail(contactDetail: mockContact, json: updatedJSon) { (contactDetail, error) in
-            XCTAssertNotNil(contactDetail, "Contact is nil")
-            XCTAssertNil(error, error?.localizedDescription ?? "Error is not nil")
-            XCTAssertEqual(contactDetail?.firstName, "Test1")
-            XCTAssertEqual(contactDetail?.lastName, "Test2")
-            XCTAssertEqual(contactDetail?.phone, "9500243064")
-            XCTAssertEqual(contactDetail?.email, "testing@test.com")
-            self.promise.fulfill()
-        }
-        waitForExpectations(timeout: ContactsTests.responseTimeOut, handler: nil)
-    }*/
-    
     func testCreateContactDetail() {
         promise = expectation(description: "Favourite update expectation")
         let updatedJSon: [String: String] = ["first_name": "New1", "last_name": "New2", "phone_number": "9500455554", "email":"9500455554@test.com"]
@@ -227,8 +210,34 @@ class ContactsTests: XCTestCase {
         let bContacts = sortedResult["B"]
         XCTAssertNotNil(bContacts)
         
+        XCTAssertEqual(aContacts!.count, 2)
         XCTAssertEqual(aContacts![0].id, contactA.id)
         XCTAssertEqual(aContacts![1].id, contactAb.id)
+        XCTAssertEqual(bContacts!.count, 1)
+        XCTAssertEqual(bContacts![0].id, contactB.id)
+    }
+    
+    func testSortContactsWithSpaecialCharacter() {
+        let contactB = ContactDetail.mockWith(id: 1, firstname: "B", lastname: "b")
+        let contactSpecialChar = ContactDetail.mockWith(id: 1, firstname: "12345", lastname: "5")
+        let contactAb = ContactDetail.mockWith(id: 1, firstname: "Ab", lastname: "ab")
+        
+        let sortedResult = contactManager.sortContacts(contacts: [contactB, contactSpecialChar, contactAb])
+        
+        let specialCharContacts = sortedResult["#"]
+        XCTAssertNotNil(specialCharContacts)
+        
+        let aContacts = sortedResult["A"]
+        XCTAssertNotNil(aContacts)
+        
+        let bContacts = sortedResult["B"]
+        XCTAssertNotNil(bContacts)
+        
+        XCTAssertEqual(specialCharContacts!.count, 1)
+        XCTAssertEqual(specialCharContacts![0].id, contactSpecialChar.id)
+        XCTAssertEqual(aContacts!.count, 1)
+        XCTAssertEqual(aContacts![0].id, contactAb.id)
+        XCTAssertEqual(bContacts!.count, 1)
         XCTAssertEqual(bContacts![0].id, contactB.id)
     }
     
