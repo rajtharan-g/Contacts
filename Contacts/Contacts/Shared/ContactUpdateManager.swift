@@ -10,7 +10,7 @@ import Foundation
 
 protocol NetworkSession {
     func loadData(from url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
-    func updateData(from url: URL, type: EditContactType, json: [String: Any], completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
+    func updateData(from url: URL, type: EditContactType, json: [String: Any]?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void)
 }
 
 class ContactUpdateManager {
@@ -42,10 +42,10 @@ class ContactUpdateManager {
         }
     }
     
-    func updateContact(contactDetail: ContactDetail, json: [String: Any?], completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
-        guard let contactId = contactDetail.id else { fatalError("Contact ID can't be empty") }
+    func updateContactDetail(contact: Contact, json: [String: Any]?, completionHandler: @escaping (ContactDetail?, Error?) -> Void) {
+        guard let contactId = contact.id else { fatalError("Contact ID can't be empty") }
         guard let url = URL(string: "\(kContactURL)/\(contactId).json") else { fatalError("URL can't be empty") }
-        updateContact(url: url, type: .update, json: json as [String : Any]) { (data, response, error) in
+        updateContact(url: url, type: .update, json: json) { (data, response, error) in
             guard error == nil else {
                 completionHandler(nil, error)
                 return
@@ -63,7 +63,7 @@ class ContactUpdateManager {
         }
     }
     
-    func updateContact(url:URL, type:EditContactType, json:[String: Any],  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func updateContact(url:URL, type:EditContactType, json:[String: Any]?,  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         session.updateData(from: url, type: type, json: json, completionHandler: completionHandler)
     }
     
@@ -77,11 +77,11 @@ extension URLSession: NetworkSession {
         }.resume()
     }
     
-    func updateData(from url: URL, type: EditContactType, json: [String: Any], completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func updateData(from url: URL, type: EditContactType, json: [String: Any]?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         var request = URLRequest(url: url)
         request.httpMethod = type == EditContactType.update ? "PUT" : "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
+        let jsonData = try? JSONSerialization.data(withJSONObject: json as Any, options: [])
         request.httpBody = jsonData
         dataTask(with: request) { data, response, error in
             completionHandler(data, response, error)

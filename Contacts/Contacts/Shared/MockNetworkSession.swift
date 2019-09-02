@@ -30,7 +30,7 @@ extension MockNetworkSession: NetworkSession {
         completionHandler(data, response, error)
     }
     
-    func updateData(from url: URL, type: EditContactType, json: [String : Any], completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func updateData(from url: URL, type: EditContactType, json: [String : Any]?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         self.cachedURL = url
         completionHandler(data, response, error)
     }

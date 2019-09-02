@@ -103,7 +103,7 @@ class EditContactViewController: UIViewController {
         guard let contact = contactDetail else { return }
         showSpinner(onView: self.view)
         let manager = ContactUpdateManager()
-        manager.updateContact(contactDetail: contact, json: contactProperties()) { (contactDetail, error) in
+        manager.updateContactDetail(contact: contact, json: contactProperties() as [String : Any]) { (contactDetail, error) in
             DispatchQueue.main.async {
                 self.removeSpinner()
                 self.contactDetail = contactDetail
